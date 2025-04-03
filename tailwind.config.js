@@ -13,7 +13,12 @@ export default {
         extend: {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                poppins: ['Poppins', 'sans-serif'],
+                poly: ['Poly', 'serif'],
             },
+            fontWeight:{
+                extrabold: '800',
+            }
         },
     },
     plugins: [],

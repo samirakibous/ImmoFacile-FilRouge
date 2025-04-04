@@ -22,4 +22,3 @@ Route::get('/city/{cityName}/images', [cityController::class, 'showCityImages'])
 Route::get('login/google', [AuthController::class, 'redirectToGoogle']);
 Route::get('login/google/callback', [AuthController::class, 'handleGoogleCallback']);
 Route::post('/login', [AuthController::class, 'login'])->name('login');
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

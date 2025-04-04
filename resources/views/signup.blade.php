@@ -67,6 +67,7 @@
             password: $('input[name="password"]').val(),
             password_confirmation: $('input[name="password_confirmation"]').val(),
             role_id: $('select[name="role_id"]').val(),
+            token: $('meta[name="csrf-token"]').attr('content') // Ajout du token CSRF dans les données du formulaire
         };
 
         $.ajax({
@@ -74,7 +75,8 @@
             method: 'POST',
             data: formData,
             headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Ajout du token CSRF dans les en-têtes
+                // 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Ajout du token CSRF dans les en-têtes
+                //  'Authorization': 'Bearer ' + token 
             },
             success: function(response) {
                 console.log(response); 

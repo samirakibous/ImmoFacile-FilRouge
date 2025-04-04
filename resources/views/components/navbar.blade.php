@@ -19,18 +19,19 @@
             <li><a href="#" class="hover:text-orange-400">Contact</a></li>
             <li><a href="#" class="hover:text-orange-400">About</a></li>
         </ul>
-        @auth
-    <!-- Lien de déconnexion uniquement si l'utilisateur est authentifié -->
-    <li>
-        <form action="{{ route('logout') }}" method="POST">
-            @csrf
-            <button type="submit" class="hover:text-orange-400">Logout</button>
-        </form>
-    </li>
-@else
-    <!-- Optionnel : afficher un message ou autre élément si l'utilisateur n'est pas authentifié -->
-    <li>Utilisateur non authentifié</li>
-@endauth
+
+        <!-- Sections visibles selon l'authentification -->
+        <li id="auth-links" class="hidden">
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button type="submit" class="hover:text-orange-400">Logout</button>
+            </form>
+        </li>
+
+        <li id="guest-links">
+            <a href="{{ route('login') }}" class="hover:text-orange-400">Login</a>
+            <a href="{{ route('register') }}" class="hover:text-orange-400">Sign Up</a>
+        </li>
         <a href="{{ route('login') }}" class="hidden md:block bg-orange-500 px-4 py-2 rounded-full text-white">Login</a>
     </div>
 
@@ -69,4 +70,33 @@
             mobileMenu.classList.add('hidden');
         });
     });
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const token = localStorage.getItem('token'); // Vérifie si un token est stocké dans le localStorage
+
+        if (token) {
+            // Utilisateur authentifié
+            document.getElementById('auth-links').classList.remove('hidden');
+            document.getElementById('guest-links').classList.add('hidden');
+        } else {
+            // Utilisateur non authentifié
+            document.getElementById('auth-links').classList.add('hidden');
+            document.getElementById('guest-links').classList.remove('hidden');
+        }
+    });
+
+    fetch('/logout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('token'),
+            },
+            body: JSON.stringify({})
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Traiter la réponse
+            console.log(data);
+        })
+        .catch(error => console.error('Error:', error));
 </script>

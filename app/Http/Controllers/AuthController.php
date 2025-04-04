@@ -50,24 +50,28 @@ class AuthController extends Controller
             'role_id' => $role_id,
             'status' => $status ?? 'active',
         ]);
-        if ($isFirstUser || $status == 'active') {
-            Auth::login($user);
-        }
-        if ($status == 'pending') {
-            return response()->json([
-                'success' => false,
-                'message' => 'Account created successfully! Please wait for admin to activate your account',
-                'redirect' => route('register')
-            ]);
-        }
-        $token = $user->createToken('NomDuToken')->plainTextToken;
-        return response()->json([
-            'success' => true,
-            'message' => 'Account created successfully!',
-            'token' => $token,
-            'redirect' =>  html_entity_decode(url('/home'))
-        ]);
+
+        // Après la création de l'utilisateur
+if ($status == 'active' || $isFirstUser) {
+    Auth::login($user);
+    
+    // Création du token
+    $token = $user->createToken('NomDuToken')->plainTextToken;
+    return response()->json([
+        'success' => true,
+        'message' => 'Account created successfully!',
+        'token' => $token,
+        'redirect' => route('home')
+    ]);
+} else { // Pour le cas 'pending'
+    return response()->json([
+        'success' => false,
+        'message' => 'Account created successfully! Please wait for admin to activate your account',
+        'redirect' => route('login')
+    ]);
+}
     }
+
 
 
     public function redirectToGoogle()
@@ -92,16 +96,28 @@ class AuthController extends Controller
         Auth::login($user);
         return redirect()->route('home');
     }
-    public function logout(Request $request)
-    {
-        Auth::logout();
-        $request->user()->tokens->each(function ($token) {
+    
+public function logout(Request $request)
+{
+    // Vérifie si un utilisateur est authentifié via un token
+    if (Auth::check()) {
+        // Récupère l'utilisateur authentifié
+        $user = $request->user();
+        
+        // Révoquer tous les tokens de l'utilisateur
+        $user->tokens->each(function ($token) {
             $token->delete();
         });
-        $request->session()->invalidate();
-
-        return redirect()->route('login');
     }
+
+    // Déconnexion de l'utilisateur
+    Auth::logout();
+
+    // Rediriger vers la page de connexion (ici pour une API, tu peux renvoyer une réponse JSON)
+    return response()->json([
+        'message' => 'Logged out successfully'
+    ]);
+}
 
 
     public function login(Request $request)

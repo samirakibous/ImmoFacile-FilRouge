@@ -122,6 +122,7 @@ public function logout(Request $request)
 
     public function login(Request $request)
     {
+        // dd($request->all());
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required|string',
@@ -142,8 +143,10 @@ public function logout(Request $request)
                 'id' => $user->id,
                 'name' => $user->name,
                 'email' => $user->email,
-                'roles' => $user->getRoleNames(),
-                'token' => $token
+                'roles' => $user->role->name,
+                'status' => $user->status,
+                'token' => $token,
+                'redirect' => route('home')
             ]
         ]);
     }

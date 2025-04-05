@@ -137,6 +137,20 @@ public function logout(Request $request)
             return response()->json(['error' => 'Invalid credentials'], 401);
         }
         $token = $user->createToken('NomDuToken')->plainTextToken;
+        if($user->role->name === 'admin'){
+            return response()->json([
+                'message' => 'Login successful',
+                'user' => [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'roles' => $user->role->name,
+                    'status' => $user->status,
+                    'token' => $token,
+                    'redirect' => route('admin.index')
+                ]
+            ]);
+        }
         return response()->json([
             'message' => 'Login successful',
             'user' => [

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\cityController;
 use Illuminate\Support\Facades\Route;
@@ -22,3 +23,9 @@ Route::get('/city/{cityName}/images', [cityController::class, 'showCityImages'])
 Route::get('login/google', [AuthController::class, 'redirectToGoogle']);
 Route::get('login/google/callback', [AuthController::class, 'handleGoogleCallback']);
 // Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::get('/article', function () {
+    return view('article');
+})->name('article');
+
+Route::get('/admin/index',[AdminController::class, 'index'])->name('admin.index');
+Route::get('/admin/demandes',[AdminController::class, 'demandes'])->name('admin.demandes');

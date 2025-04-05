@@ -15,7 +15,7 @@
         <!-- Menu pour desktop -->
         <ul class="hidden md:flex space-x-6">
             <li><a href="#" class="hover:text-orange-400">Home</a></li>
-            <li><a href="#" class="hover:text-orange-400">Services</a></li>
+            <li><a href="{{ route('article') }}" class="hover:text-orange-400">Services</a></li>
             <li><a href="#" class="hover:text-orange-400">Contact</a></li>
             <li><a href="#" class="hover:text-orange-400">About</a></li>
         </ul>

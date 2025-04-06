@@ -28,4 +28,9 @@ Route::get('/article', function () {
 })->name('article');
 
 Route::get('/admin/index',[AdminController::class, 'index'])->name('admin.index');
-Route::get('/admin/demandes',[AdminController::class, 'demandes'])->name('admin.demandes');
+Route::get('/admin/demandes', [AdminController::class, 'demandes'])->name('admin.demandes');
+    Route::put('/demandes/{id}', [AdminController::class, 'accepter'])->name('demandes.update');
+    Route::delete('/demandes/{id}', [AdminController::class, 'refuser'])->name('demandes.destroy');
+
+   
+        

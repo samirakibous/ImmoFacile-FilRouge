@@ -4,6 +4,7 @@
 
 @section('content')
     <div class="flex min-h-screen">
+        
         <x-sidebar />
         <!-- Main Content -->
         <div class="flex-1 p-8">

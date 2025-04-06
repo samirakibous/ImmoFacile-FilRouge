@@ -18,15 +18,16 @@
             <li><a href="{{ route('article') }}" class="hover:text-orange-400">Services</a></li>
             <li><a href="#" class="hover:text-orange-400">Contact</a></li>
             <li><a href="#" class="hover:text-orange-400">About</a></li>
+            <li id="auth-links" class="hidden">
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="hover:text-orange-400">Logout</button>
+                </form>
+            </li>
         </ul>
 
-        <!-- Sections visibles selon l'authentification -->
-        <li id="auth-links" class="hidden">
-            <form action="{{ route('logout') }}" method="POST">
-                @csrf
-                <button type="submit" class="hover:text-orange-400">Logout</button>
-            </form>
-        </li>
+      
+      
 
         <li id="guest-links">
             <a href="{{ route('login') }}" class="hover:text-orange-400">Login</a>

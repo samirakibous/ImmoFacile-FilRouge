@@ -20,7 +20,8 @@
             <div class="bg-white bg-opacity-20 backdrop-blur-md p-8 rounded-2xl shadow-lg w-96">
                 <h2 class="text-white text-2xl font-semibold text-center mb-6">Sign in to your account</h2>
 
-                <form id="login-form" class="space-y-4">
+                <form method="POST" action="{{ route('login') }}" class="space-y-4">
+                    @csrf
                     <input type="email" id="email" name="email" placeholder="Email"
                         class="w-full px-4 py-2 bg-white bg-opacity-70 text-gray-900 rounded-md">
                     <input type="password" id="password" name="password" placeholder="Password"
@@ -36,6 +37,13 @@
                         Sign in with Google
                     </button>
                 </form>
+                @if ($errors->any())
+                    <div class="text-red-500 text-sm text-center">
+                        @foreach ($errors->all() as $error)
+                            <p>{{ $error }}</p>
+                        @endforeach
+                    </div>
+                @endif
 
                 <div id="login-error" style="color: red;" class="mt-2 text-sm text-center"></div>
 
@@ -45,9 +53,9 @@
             </div>
         </div>
     </div>
-
+{{-- 
     <script>
-        $('#login-form').on('submit', function (e) {
+        $('#login-form').on('submit', function(e) {
             e.preventDefault();
 
             const email = $('#email').val();
@@ -57,8 +65,11 @@
                 url: '/api/login',
                 type: 'POST',
                 contentType: 'application/json',
-                data: JSON.stringify({ email, password }),
-                success: function (response) {
+                data: JSON.stringify({
+                    email,
+                    password
+                }),
+                success: function(response) {
                     console.log('Connexion réussie', response);
                     if (response.user.redirect) {
                         window.location.href = response.user.redirect;
@@ -66,7 +77,7 @@
                         $('#login-error').text('Redirection non trouvée.');
                     }
                 },
-                error: function (xhr) {
+                error: function(xhr) {
                     console.error('Erreur de connexion', xhr.responseJSON);
                     if (xhr.responseJSON && xhr.responseJSON.error) {
                         $('#login-error').text(xhr.responseJSON.error);
@@ -76,7 +87,7 @@
                 }
             });
         });
-    </script>
+    </script> --}}
 </body>
 
 </html>

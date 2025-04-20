@@ -99,69 +99,76 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        // Vérifie si un utilisateur est authentifié via un token
         if (Auth::check()) {
-            // Récupère l'utilisateur authentifié
             $user = $request->user();
-
-            // Révoquer tous les tokens de l'utilisateur
             $user->tokens->each(function ($token) {
                 $token->delete();
             });
         }
-
-        // Déconnexion de l'utilisateur
         Auth::logout();
-
-        // Rediriger vers la page de connexion (ici pour une API, tu peux renvoyer une réponse JSON)
-        return response()->json([
-            'message' => 'Logged out successfully'
-        ]);
+        return redirect()->route('login')->with('success', 'Vous êtes déconnecté avec succès.');
     }
 
 
-    public function login(Request $request)
-    {
-        // dd($request->all());
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|email',
-            'password' => 'required|string',
-        ]);
+    // public function login(Request $request)
+    // {
+    //     // dd($request->all());
+    //     $validator = Validator::make($request->all(), [
+    //         'email' => 'required|email',
+    //         'password' => 'required|string',
+    //     ]);
 
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
+    //     if ($validator->fails()) {
+    //         return response()->json(['errors' => $validator->errors()], 422);
+    //     }
 
-        $user = User::where('email', $request->email)->first();
-        if (!$user || !Hash::check($request->password, $user->password)) {
-            return response()->json(['error' => 'Invalid credentials'], 401);
-        }
-        $token = $user->createToken('NomDuToken')->plainTextToken;
-        if ($user->role->name === 'admin') {
-            return response()->json([
-                'message' => 'Login successful',
-                'user' => [
-                    'id' => $user->id,
-                    'name' => $user->name,
-                    'email' => $user->email,
-                    'roles' => $user->role->name,
-                    'status' => $user->status,
-                    'token' => $token,
-                    'redirect' => route('admin.index')
-                ]
-            ]);
-        }
-        return response()->json([
-            'message' => 'Login successful',
-            'user' => [
-                'id' => $user->id,
-                'name' => $user->name,
-                'email' => $user->email,
-                'roles' => $user->role->name,
-                'status' => $user->status,
-                'token' => $token,
-                'redirect' => route('home')
-            ]
-        ]);
+    //     $user = User::where('email', $request->email)->first();
+    //     if (!$user || !Hash::check($request->password, $user->password)) {
+    //         return response()->json(['error' => 'Invalid credentials'], 401);
+    //     }
+    //     $token = $user->createToken('NomDuToken')->plainTextToken;
+    //     if ($user->role->name === 'admin') {
+    //         return response()->json([
+    //             'message' => 'Login successful',
+    //             'user' => [
+    //                 'id' => $user->id,
+    //                 'name' => $user->name,
+    //                 'email' => $user->email,
+    //                 'roles' => $user->role->name,
+    //                 'status' => $user->status,
+    //                 'token' => $token,
+    //                 'redirect' => route('admin.index')
+    //             ]
+    //         ]);
+    //     }
+    //     return response()->json([
+    //         'message' => 'Login successful',
+    //         'user' => [
+    //             'id' => $user->id,
+    //             'name' => $user->name,
+    //             'email' => $user->email,
+    //             'roles' => $user->role->name,
+    //             'status' => $user->status,
+    //             'token' => $token,
+    //             'redirect' => route('home')
+    //         ]
+    //     ]);
+    // }
+
+    public function login(Request $request){
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required|string',
+    ]);
+    $user = User::where('email', $request->email)->first();
+    if (!$user || !Hash::check($request->password, $user->password)) {
+        return back()->withErrors(['email' => 'Identifiants incorrects.'])->withInput();
     }
+    Auth::login($user);
+    if ($user->role->name === 'admin') {
+        return redirect()->route('admin.index');
+    } else {
+        return redirect()->route('home');
+    }
+}
 }

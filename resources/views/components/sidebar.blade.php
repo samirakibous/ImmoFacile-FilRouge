@@ -31,7 +31,10 @@
               </svg>
               Demandes connexion
           </a>
-          <a href="#" class="flex items-center px-4 py-3 text-sm rounded-lg text-gray-600 hover:bg-gray-100">
+          <a href="{{ route('admin.users') }}"
+          class="flex items-center px-4 py-3 text-sm rounded-lg font-medium
+          {{ request()->routeIs('admin.users') ? 'bg-orange-100 text-orange-800' : 'text-gray-600 hover:bg-gray-100' }}">
+       
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24"
                   stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -54,13 +57,16 @@
               </svg>
               Reviews
           </a>
-          <a href="#" class="flex items-center px-4 py-3 text-sm rounded-lg text-gray-600 hover:bg-gray-100">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24"
-                  stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-              </svg>
-              Logout
-          </a>
+          <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit" class="flex items-center px-4 py-3 text-sm rounded-lg text-gray-600 hover:bg-gray-100">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                </svg>
+                Logout
+            </button>
+        </form>
+        </form>
       </div>
   </div>

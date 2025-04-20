@@ -3,6 +3,8 @@
 @section('title', 'Accueil')
 
 @section('content')
+    <!-- Navbar -->
+    <x-navbar />
     <div class="relative w-full h-screen">
         <div class="absolute inset-0 bg-cover bg-center" style="background-image: url({{ asset('images/background.jpg') }});">
         </div>
@@ -27,5 +29,5 @@
             </div>
         </div>
     </div>
-   
+
 @endsection

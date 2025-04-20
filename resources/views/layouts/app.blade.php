@@ -10,8 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poly:ital@0;1&display=swap" rel="stylesheet">
 </head>
 <body class="bg-gray-900 min-h-screen flex flex-col">
-    <!-- Navbar -->
-    <x-navbar />
+   
 
     <!-- Contenu principal -->
     <main class="flex-grow">

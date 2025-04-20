@@ -1,13 +1,8 @@
-<!DOCTYPE html>
-<html lang="fr">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-</head>
+@section('title', 'signup')
+
+@section('content')
 
 <body class="h-screen flex items-center justify-center bg-gray-900">
     <div class="relative w-full h-full">
@@ -62,7 +57,7 @@
             </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
             $('form').submit(function(e) {
@@ -110,9 +105,6 @@
                 });
             });
         });
-    </script>
-    
-
+    </script> --}}
 </body>
-
-</html>
+@endsection

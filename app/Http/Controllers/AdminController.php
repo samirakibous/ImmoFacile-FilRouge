@@ -8,13 +8,15 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $users = User::all();
         $totalUsers = User::count();
         return view('admin.index', compact('users', 'totalUsers'));
     }
 
-    public function demandes(){
+    public function demandes()
+    {
         $users = User::all();
         $demandes = User::where('role_id', 2)->get();
         $totalDemandes = User::where('role_id', 2)->count();
@@ -46,9 +48,9 @@ class AdminController extends Controller
 
     public function users()
     {
-        $users = User::paginate(4); ;
+        $users = User::paginate(4);
         $totalUsers = User::count();
-        $roles =Role::all();
+        $roles = Role::all();
         return view('admin.users', compact('users', 'totalUsers', 'roles'));
     }
 
@@ -65,9 +67,19 @@ class AdminController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::findOrFail($id);
-        $user->update($request->all());
-        return redirect()->route('admin.users')->with('success', 'Utilisateur mis à jour avec succès.');
-    }   
+
+        $allowedFields = ['name', 'email', 'status'];
+
+        foreach ($allowedFields as $field) {
+            if ($request->has($field)) {
+                $user->$field = $request->input($field);
+            }
+        }
+
+        $user->save();
+
+        return response()->json(['success' => true]);
+    }
 
     public function destroy($id)
     {

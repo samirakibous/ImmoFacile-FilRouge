@@ -18,7 +18,9 @@ class AdminController extends Controller
     public function demandes()
     {
         $users = User::all();
-        $demandes = User::where('role_id', 2)->get();
+        // $demandes = User::where('role_id', 2)->get();
+        $demandes=User::where('status','pending')->get();
+        // dd($demandes);
         $totalDemandes = User::where('role_id', 2)->count();
         $totalUsers = User::count();
         // dd($totalDemandes);
@@ -95,7 +97,7 @@ class AdminController extends Controller
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:6',
             'role_id' => 'required|exists:roles,id',
-            'status' => 'required|in:active,suspended',
+            'status' => 'required|in:active,pending,suspended',
         ]);
 
         User::create([

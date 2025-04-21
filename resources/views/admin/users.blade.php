@@ -71,7 +71,7 @@
                             <label class="block mb-1 font-medium">Statut</label>
                             <select name="status" class="w-full border rounded px-3 py-2">
                                 <option value="active">Actif</option>
-                                <option value="suspended">Suspendu</option>
+                                <option value="pending">pending</option>
                             </select>
                         </div>
 
@@ -94,7 +94,7 @@
                                 <button type="submit"
                                     class="absolute right-0 top-0 mt-2 mr-2 text-gray-400 hover:text-gray-600">
                                     <i class="fas fa-search"></i>
-                                </button>
+                                </button> 
                             </div>
                             <button type="submit"
                                 class="bg-gray-200 hover:bg-gray-300 text-gray-700 py-2 px-4 rounded-lg shadow-sm transition duration-300">
@@ -182,8 +182,8 @@
                                                     class="hidden border rounded px-2 py-1 text-sm">
                                                     <option value="active"
                                                         {{ $user->status === 'active' ? 'selected' : '' }}>Actif</option>
-                                                    <option value="suspended"
-                                                        {{ $user->status === 'suspended' ? 'selected' : '' }}>Suspendu
+                                                    <option value="pending"
+                                                        {{ $user->status === 'pending' ? 'selected' : '' }}>pending
                                                     </option>
                                                 </select>
                                             </td>

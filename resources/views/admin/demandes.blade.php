@@ -68,7 +68,7 @@
                                         {{ $demande->created_at->format('d/m/Y H:i') }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <form method="POST" action="{{ route('demandes.update', $demande->id) }}"
+                                        <form method="POST" action="{{ route('admin.demandes.update', $demande->id) }}"
                                             class="inline">
                                             @csrf
                                             @method('PUT')
@@ -78,7 +78,7 @@
                                             </button>
                                         </form>
 
-                                        <form method="POST" action="{{ route('demandes.destroy', $demande->id) }}"
+                                        <form method="POST" action="{{ route('admin.demandes.destroy', $demande->id) }}"
                                             class="inline">
                                             @csrf
                                             @method('DELETE')

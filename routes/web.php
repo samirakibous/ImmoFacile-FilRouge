@@ -37,8 +37,8 @@ Route::get('/article', function () {
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/index', [AdminController::class, 'index'])->name('index');
     Route::get('/demandes', [AdminController::class, 'demandes'])->name('demandes');
-    Route::put('/demandes/{id}', [AdminController::class, 'accepter'])->name('update');
-    Route::delete('/demandes/{id}', [AdminController::class, 'refuser'])->name('destroy');
+    Route::put('/demandes/{id}', [AdminController::class, 'accepter'])->name('demandes.update');
+    Route::delete('/demandes/{id}', [AdminController::class, 'refuser'])->name('demandes.destroy');
 
     Route::get('/users', [AdminController::class, 'users'])->name('users');
     Route::post('users', [AdminController::class, 'create'])->name('users.create');

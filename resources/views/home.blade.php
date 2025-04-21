@@ -16,7 +16,7 @@
             </p>
             @auth
                 <p>Bienvenue, {{ Auth::user()->name }} !</p>
-                <a href="{{ route('profile') }}">Voir votre profil</a>
+                <a href="">Voir votre profil</a>
             @else
                 <a href="{{ route('login') }}">Se connecter</a>
             @endauth

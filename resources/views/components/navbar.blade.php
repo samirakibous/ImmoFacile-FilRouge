@@ -13,13 +13,17 @@
 
         <!-- Menu pour desktop -->
         <ul class="hidden md:flex space-x-6">
-            <li><a href="{{ route('home') }}" class="hover:text-orange-400">Home</a></li>
-            <li><a href="" class="hover:text-orange-400">Services</a></li>
+            {{-- <li><a href="{{ route('home') }}" class="hover:text-orange-400">Home</a></li> --}}
+            {{-- <li><a href="" class="hover:text-orange-400">Services</a></li>
             <li><a href="" class="hover:text-orange-400">Contact</a></li>
-            <li><a href="" class="hover:text-orange-400">About</a></li>
+            <li><a href="" class="hover:text-orange-400">About</a></li> --}}
 
             @auth
                 <li>
+                    <li><a href="{{ route('home') }}" class="hover:text-orange-400">Home</a></li>
+                    <li><a href="" class="hover:text-orange-400">Vendre</a></li>
+                        <li><a href="" class="hover:text-orange-400">Location</a></li>
+                        <li><a href="" class="hover:text-orange-400">Estimation</a></li> 
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf
                         <button type="submit" class="hover:text-orange-400">Logout</button>
@@ -29,12 +33,12 @@
         </ul>
 
         @guest
-            <!-- Liens pour les utilisateurs non authentifiés -->
-            <li id="guest-links">
-                <a href="{{ route('login') }}" class="hover:text-orange-400">Login</a>
-                <a href="{{ route('register') }}" class="hover:text-orange-400">Sign Up</a>
-            </li>
-            <a href="{{ route('login') }}" class="hidden md:block bg-orange-500 px-4 py-2 rounded-full text-white">Login</a>
+            <div class="flex gap-4">
+                <a href="{{ route('login') }}"
+                    class="hidden md:block bg-orange-500 px-4 py-2 rounded-full text-white">Login</a>
+                <a href="{{ route('register') }}"
+                    class="hidden md:block bg-orange-500 px-4 py-2 rounded-full text-white">Sign Up</a>
+            </div>
         @endguest
 
         <!-- Menu mobile -->

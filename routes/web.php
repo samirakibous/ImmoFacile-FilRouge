@@ -46,5 +46,6 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/users/{id}', [AdminController::class, 'show'])->name('users.show');
     Route::get('users/{id}/edit', [AdminController::class, 'edit'])->name('users.edit');
     Route::put('users/{id}', [AdminController::class, 'update'])->name('users.update');
+    Route::post('/users', [AdminController::class, 'store'])->name('users.store');
     Route::delete('users/{id}', [AdminController::class, 'destroy'])->name('users.destroy');
 });

@@ -32,7 +32,7 @@ class AdminController extends Controller
     {
         $user = User::findOrFail($id);
         // dd($user->role_id);
-        $user->role_id = 3;
+        $user->role_id = 2;
         // dd($user->role_id);
         $user->status = 'active';
         $user->save();

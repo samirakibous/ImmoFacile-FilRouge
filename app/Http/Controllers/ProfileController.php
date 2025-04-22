@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
@@ -40,4 +41,29 @@ class ProfileController extends Controller
    {
        return view('favoris');
    }
+
+    public function compte()
+    {
+        $user = auth()->user();
+         return view('compte', compact('user'));
+    }
+
+    public function updatePassword(Request $request)
+{
+    $request->validate([
+        'current_password' => 'required',
+        'new_password' => 'required|min:8|confirmed',
+    ]);
+
+    if (!Hash::check($request->current_password, auth()->user()->password)) {
+        return back()->withErrors(['current_password' => 'Mot de passe actuel incorrect.']);
+    }
+
+    auth()->user()->update([
+        'password' => Hash::make($request->new_password),
+    ]);
+
+    return back()->with('success', 'Mot de passe mis à jour avec succès.');
+}
+
 }

@@ -46,6 +46,10 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/profile/photo', [ProfileController::class, 'updatePhoto'])->name('profile.update.photo');
     
     Route::get('/favoris', [ProfileController::class, 'favoris'])->name('profile.favoris');
+    Route::get('/compte',[ProfileController::class, 'compte'])->name('profile.compte');
+    Route::post('/compte', [ProfileController::class, 'update'])->name('account.update');
+    Route::put('/account/password', [ProfileController::class, 'updatePassword'])->name('password.update');
+
 
 });
 

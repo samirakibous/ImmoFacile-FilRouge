@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <body class="h-screen flex items-center justify-center bg-gray-900">
+<div class="h-screen flex items-center justify-center bg-gray-900">
         <div class="relative w-full h-full">
             <div class="absolute inset-0 bg-cover bg-center"
                 style="background-image: url({{ asset('images/background.jpg') }});"></div>
@@ -59,5 +59,5 @@
                 </div>
             </div>
         </div>
-    </body>
+</div>
 @endsection

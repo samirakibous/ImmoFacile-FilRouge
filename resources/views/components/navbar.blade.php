@@ -35,7 +35,7 @@
 
                         <!-- Dropdown menu -->
                         <ul
-                            class="absolute right-0 mt-2 bg-white text-black border border-gray-200 rounded shadow-md w-40 hidden group-hover:block z-50">
+                            class="absolute right-0 bg-white text-black border border-gray-200 rounded shadow-md w-40 hidden group-hover:block z-50">
                             <li>
                                 <a href="{{ route('profile.index') }}"
                                     class="block px-4 py-2 hover:bg-orange-100">Profil</a>

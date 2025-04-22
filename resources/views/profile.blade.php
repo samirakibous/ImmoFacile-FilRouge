@@ -3,25 +3,10 @@
 @section('title', 'Profile')
 
 @section('content')
-    <!-- Navbar -->
     <x-navbar />
     <div class="container mx-auto px-4 py-6">
         <div class="flex flex-col md:flex-row gap-6">
-            <!-- Sidebar -->
-            <div class="w-full md:w-1/4">
-                <div class="bg-white rounded-lg shadow">
-                    <div class="p-6">
-                        <h5 class="text-lg font-medium mb-4">My Profile</h5>
-                        <ul class="space-y-2">
-                            <li><a href="#" class="block py-2 text-gray-600 hover:text-blue-500">Profile</a></li>
-                            <li><a href="#" class="block py-2 text-gray-600 hover:text-blue-500">gestion de compte</a></li>
-                            <li><a href="#" class="block py-2 text-gray-600 hover:text-blue-500">Favoris</a></li>
-                            <li><a href="#" class="block py-2 text-gray-600 hover:text-blue-500">Achats</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            
+         <x-profileSidebare />
             <!-- Content -->
             <div class="w-full md:w-3/4">
                 <!-- Profile Header -->

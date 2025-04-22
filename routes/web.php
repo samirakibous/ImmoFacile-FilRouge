@@ -44,6 +44,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('/profile/photo', [ProfileController::class, 'updatePhoto'])->name('profile.update.photo');
+    
+    Route::get('/favoris', [ProfileController::class, 'favoris'])->name('profile.favoris');
+
 });
 
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {

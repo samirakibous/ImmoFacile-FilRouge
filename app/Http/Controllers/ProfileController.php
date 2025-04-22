@@ -35,4 +35,9 @@ class ProfileController extends Controller
        
        return redirect()->route('profile.index')->with('success', 'Photo de profil mise à jour avec succès');
    }
+
+   public function favoris()
+   {
+       return view('favoris');
+   }
 }

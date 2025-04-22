@@ -17,9 +17,11 @@ class AuthController extends Controller
 {
     public function register(Request $request)
     { 
+        //  dd($request);
         
         $request->validate([
             'name' => 'required|string|max:255',
+            'last_name' => 'nullable|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|confirmed|min:8',
             'role_id' => 'required|exists:roles,id',
@@ -44,12 +46,12 @@ class AuthController extends Controller
 
         $user = User::create([
             'name' => $request->name,
+            'last_name' => $request->last_name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role_id' => $role_id,
             'status' => $status ?? 'active',
         ]);
-
         if ($status == 'active' || $isFirstUser) {
             Auth::login($user);
             $token = $user->createToken('NomDuToken')->plainTextToken;

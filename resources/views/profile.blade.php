@@ -13,13 +13,10 @@
                     <div class="p-6">
                         <h5 class="text-lg font-medium mb-4">My Profile</h5>
                         <ul class="space-y-2">
-                            <li><a href="#" class="block py-2 text-gray-600 hover:text-blue-500">Security</a></li>
-                            <li><a href="#" class="block py-2 text-gray-600 hover:text-blue-500">Teams</a></li>
-                            <li><a href="#" class="block py-2 text-gray-600 hover:text-blue-500">Team Member</a></li>
-                            <li><a href="#" class="block py-2 text-gray-600 hover:text-blue-500">Notifications</a></li>
-                            <li><a href="#" class="block py-2 text-gray-600 hover:text-blue-500">Billing</a></li>
-                            <li><a href="#" class="block py-2 text-gray-600 hover:text-blue-500">Data Export</a></li>
-                            <li><a href="#" class="block py-2 text-red-500 hover:text-red-700">Delete Account</a></li>
+                            <li><a href="#" class="block py-2 text-gray-600 hover:text-blue-500">Profile</a></li>
+                            <li><a href="#" class="block py-2 text-gray-600 hover:text-blue-500">gestion de compte</a></li>
+                            <li><a href="#" class="block py-2 text-gray-600 hover:text-blue-500">Favoris</a></li>
+                            <li><a href="#" class="block py-2 text-gray-600 hover:text-blue-500">Achats</a></li>
                         </ul>
                     </div>
                 </div>
@@ -38,7 +35,7 @@
                             <div class="mr-6 mb-4 sm:mb-0 relative group">
                                 <!-- Photo wrapper with click functionality -->
                                 <label for="photo-upload" class="cursor-pointer block">
-                                    <img src="{{ asset('images/' . (Auth::user()->photo ?? 'image.png')) }}" alt="Profile" class="rounded-full w-24 h-24 object-cover">
+                                    <img src="{{ asset('storage/' . (Auth::user()->profile_picture ?? 'image.png')) }}" alt="Profile" class="rounded-full w-24 h-24 object-cover">
                                     
                                     <!-- Overlay that appears on hover -->
                                     <div class="absolute inset-0 bg-black bg-opacity-50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
@@ -50,12 +47,13 @@
                                 <form id="profile-photo-form" action="{{ route('profile.update.photo') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
-                                    <input type="file" id="photo-upload" name="photo" accept="image/*" class="hidden" onchange="document.getElementById('profile-photo-form').submit()">
+                                    <input type="file" id="photo-upload" name="profile_picture" accept="image/*" class="hidden" onchange="document.getElementById('profile-photo-form').submit()">
                                 </form>
                             </div>
                             
                             <div class="text-center sm:text-left">
                                 <h3 class="text-xl font-semibold">{{ $user->name }}</h3>
+                                <h3 class="text-lg font-semibold text-gray-500">{{ $user->last_name }}</h3>
                                 <p class="text-gray-500">{{ $user->address_city }} {{ $user->address_country }}</p>
                             </div>
                             <div class="mt-4 sm:mt-0 sm:ml-auto">

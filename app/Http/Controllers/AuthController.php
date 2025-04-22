@@ -16,14 +16,14 @@ use Illuminate\Support\Facades\Auth;
 class AuthController extends Controller
 {
     public function register(Request $request)
-    {
+    { 
+        
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|confirmed|min:8',
             'role_id' => 'required|exists:roles,id',
         ]);
-
         $isFirstUser = User::count() === 0;
 
         if ($isFirstUser) {
@@ -50,24 +50,16 @@ class AuthController extends Controller
             'status' => $status ?? 'active',
         ]);
 
-        // Après la création de l'utilisateur
         if ($status == 'active' || $isFirstUser) {
             Auth::login($user);
-
-            // Création du token
             $token = $user->createToken('NomDuToken')->plainTextToken;
-            return response()->json([
-                'success' => true,
-                'message' => 'Account created successfully!',
-                'token' => $token,
-                'redirect' => route('home')
-            ]);
-        } else { // Pour le cas 'pending'
-            return response()->json([
-                'success' => false,
-                'message' => 'Account created successfully! Please wait for admin to activate your account',
-                'redirect' => route('login')
-            ]);
+            if($user->role->name === 'admin') {
+                return redirect()->route('admin.index');
+            } else {
+                return redirect()->route('home');
+            }
+        } else { 
+           return redirect()->route('login');
         }
     }
 
@@ -154,20 +146,21 @@ class AuthController extends Controller
     //     ]);
     // }
 
-    public function login(Request $request){
-    $request->validate([
-        'email' => 'required|email',
-        'password' => 'required|string',
-    ]);
-    $user = User::where('email', $request->email)->first();
-    if (!$user || !Hash::check($request->password, $user->password)) {
-        return back()->withErrors(['email' => 'Identifiants incorrects.'])->withInput();
+    public function login(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string',
+        ]);
+        $user = User::where('email', $request->email)->first();
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            return back()->withErrors(['email' => 'Identifiants incorrects.'])->withInput();
+        }
+        Auth::login($user);
+        if ($user->role->name === 'admin') {
+            return redirect()->route('admin.index');
+        } else {
+            return redirect()->route('home');
+        }
     }
-    Auth::login($user);
-    if ($user->role->name === 'admin') {
-        return redirect()->route('admin.index');
-    } else {
-        return redirect()->route('home');
-    }
-}
 }

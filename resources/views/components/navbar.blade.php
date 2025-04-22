@@ -19,24 +19,47 @@
             <li><a href="" class="hover:text-orange-400">About</a></li> --}}
 
             @auth
-                <li>
-                    <li><a href="{{ route('home') }}" class="hover:text-orange-400">Home</a></li>
-                    <li><a href="" class="hover:text-orange-400">Vendre</a></li>
-                        <li><a href="" class="hover:text-orange-400">Location</a></li>
-                        <li><a href="" class="hover:text-orange-400">Estimation</a></li> 
-                    <form action="{{ route('logout') }}" method="POST">
-                        @csrf
-                        <button type="submit" class="hover:text-orange-400">Logout</button>
-                    </form>
+                <li><a href="{{ route('home') }}" class="hover:text-orange-400">Home</a></li>
+                <li><a href="#" class="hover:text-orange-400">Vendre</a></li>
+                <li><a href="#" class="hover:text-orange-400">Location</a></li>
+                <li><a href="#" class="hover:text-orange-400">Estimation</a></li>
+                <li><a href="#" class="hover:text-orange-400">Agent Immobilier</a></li>
+
+                <!-- Menu profil avec dropdown -->
+                @if(Auth::user()->role->name != 'admin')
+                <li class="relative group">
+                    <button class="focus:outline-none">
+                        <img src="{{ asset('images/' . (Auth::user()->photo ?? 'image.png')) }}" alt="Profile"
+                            class="w-10 h-10 rounded-full object-cover border-2 border-orange-400">
+                    </button>
+
+                    <!-- Dropdown menu -->
+                    <ul
+                        class="absolute right-0 mt-2 bg-white text-black border border-gray-200 rounded shadow-md w-40 hidden group-hover:block z-50">
+                        <li>
+                            <a href="{{ route('profile.index')}}" class="block px-4 py-2 hover:bg-orange-100">Profil</a>
+                        </li>
+                        <li>
+                            <form action="{{ route('logout') }}" method="POST" class="m-0">
+                                @csrf
+                                <button type="submit" class="block w-full text-left px-4 py-2 hover:bg-orange-100">
+                                    Logout
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
                 </li>
+               @endif
+                
             @endauth
+
         </ul>
 
         @guest
             <div class="flex gap-4">
                 <a href="{{ route('login') }}"
                     class="hidden md:block bg-orange-500 px-4 py-2 rounded-full text-white">Login</a>
-                <a href="{{ route('register') }}"
+                <a href="{{ route('signup') }}"
                     class="hidden md:block bg-orange-500 px-4 py-2 rounded-full text-white">Sign Up</a>
             </div>
         @endguest

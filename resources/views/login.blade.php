@@ -48,7 +48,7 @@
                 <div id="login-error" style="color: red;" class="mt-2 text-sm text-center"></div>
 
                 <p class="text-white text-center mt-4">Don’t have an account?
-                    <a href="{{ route('register') }}" class="underline">Sign up</a>
+                    <a href="{{ route('signup') }}" class="underline">Sign up</a>
                 </p>
             </div>
         </div>

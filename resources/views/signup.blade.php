@@ -15,7 +15,7 @@
             <div class="bg-white bg-opacity-20 backdrop-blur-md p-8 rounded-2xl shadow-lg w-96">
                 <h2 class="text-white text-2xl font-semibold text-center mb-6">Create your account</h2>
 
-                <form action="{{ route('register') }}" method="POST" class="space-y-4">
+                <form action="{{ route('signup') }}" method="POST" class="space-y-4">
                     @csrf
 
                     <!-- Full Name Input -->
@@ -57,54 +57,5 @@
             </div>
         </div>
     </div>
-    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('form').submit(function(e) {
-                e.preventDefault();  // Empêche l'envoi classique du formulaire
-    
-                let formData = {
-                    name: $('input[name="name"]').val(),
-                    email: $('input[name="email"]').val(),
-                    password: $('input[name="password"]').val(),
-                    password_confirmation: $('input[name="password_confirmation"]').val(),
-                    role_id: $('select[name="role_id"]').val(),
-                    token: $('meta[name="csrf-token"]').attr('content') // Ajout du token CSRF dans les données du formulaire
-                };
-    
-                $.ajax({
-                    url: 'http://127.0.0.1:8000/api/signup',  //url de la route api
-                    method: 'POST',
-                    data: formData,
-                    success: function(response) {
-                        console.log(response); 
-                        if (response.success) {
-                            // Sauvegarder le token dans le localStorage pour une utilisation future
-                            localStorage.setItem('token', response.token);
-                        
-    
-                            // Ajouter le token dans l'en-tête pour les futures requêtes
-                            $.ajaxSetup({
-                                headers: {
-                                    'Authorization': 'Bearer ' + response.token
-                                }
-                            });
-    
-                            if (response.redirect) {
-                                window.location.href = response.redirect;
-                            } else {
-                                alert('Erreur : L\'URL de redirection est manquante.');
-                            }
-                        } else {
-                            alert('Erreur : ' + response.message);
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        alert('Erreur de requête : ' + error);
-                    }
-                });
-            });
-        });
-    </script> --}}
 </body>
 @endsection

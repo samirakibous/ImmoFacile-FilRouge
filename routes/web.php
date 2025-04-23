@@ -53,6 +53,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/compte', [ProfileController::class, 'update'])->name('account.update');
     Route::put('/account/password', [ProfileController::class, 'updatePassword'])->name('password.update');
     Route::post('desactivate' ,[ProfileController::class, 'desactivate'])->name('account.deactivate');
+    Route::post('/delete', [ProfileController::class, 'delete'])->name('account.delete');
 
 
 

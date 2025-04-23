@@ -99,5 +99,13 @@ public function reactivate(Request $request)
     return redirect()->route('home')->with('status', 'Bienvenue de retour ! Votre compte est réactivé.');
 }
 
+public function delete(Request $request)
+{
+    $user = Auth::user();
 
+    Auth::logout();
+    $user->delete();
+
+    return redirect()->route('home')->with('success', 'Votre compte a été supprimé.');
+}
 }

@@ -225,7 +225,7 @@
                                     <p class="text-sm text-gray-600 mt-1">Supprimer définitivement vos données et tout ce
                                         qui est associé à votre compte</p>
                                 </div>
-                                <button type="button"
+                                <button type="button" id="openDeleteModal"
                                     class="inline-flex items-center justify-center px-4 py-2 border border-red-300 
                                     rounded-md shadow-sm text-sm font-medium text-red-700 bg-white hover:bg-red-50 
                                     focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition">
@@ -276,6 +276,27 @@
         </div>
     </div>
 
+     <!-- Modal Supréssion -->
+     <div id="deleteModal" class="hidden fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+            <h2 class="text-lg font-semibold text-gray-800 mb-4">Confirmer la suppression</h2>
+            <p class="text-sm text-gray-600 mb-6">Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est
+                irréversible.</p>
+                <form method="POST" action="{{ route('account.delete') }}">
+                    @csrf
+                    <div class="flex justify-end gap-2">
+                        <button type="button" id="cancelDelete" class="px-4 py-2 bg-gray-100 text-gray-800 rounded hover:bg-gray-200">
+                            Annuler
+                        </button>
+                        <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">
+                            Confirmer
+                        </button>
+                    </div>
+                </form>
+                
+        </div>
+    </div>
+
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -303,6 +324,20 @@
             const openBtn = document.getElementById('openDeactivateModal');
             const modal = document.getElementById('deactivateModal');
             const cancelBtn = document.getElementById('cancelDeactivate');
+
+            openBtn.addEventListener('click', () => {
+                modal.classList.remove('hidden');
+            });
+
+            cancelBtn.addEventListener('click', () => {
+                modal.classList.add('hidden');
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const openBtn = document.getElementById('openDeleteModal');
+            const modal = document.getElementById('deleteModal');
+            const cancelBtn = document.getElementById('cancelDelete');
 
             openBtn.addEventListener('click', () => {
                 modal.classList.remove('hidden');

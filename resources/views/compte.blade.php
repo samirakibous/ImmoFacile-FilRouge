@@ -70,46 +70,51 @@
                         </div>
 
                         <!-- Modal -->
-<div id="passwordModal"
-class="hidden fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-<div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6">
-    <h2 class="text-lg font-semibold mb-4">Changer le mot de passe</h2>
+                        <div id="passwordModal"
+                            class="hidden fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+                            <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6">
+                                <h2 class="text-lg font-semibold mb-4">Changer le mot de passe</h2>
 
-    <form method="POST" action="{{ route('password.update') }}">
-        @csrf
-        @method('PUT')
+                                <form method="POST" action="{{ route('password.update') }}">
+                                    @csrf
+                                    @method('PUT')
 
-        <!-- Ancien mot de passe -->
-        <div class="mb-4">
-            <label for="current_password" class="block text-sm font-medium text-gray-700">Mot de passe actuel</label>
-            <input type="password" name="current_password" id="current_password" required
-                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-        </div>
+                                    <!-- Ancien mot de passe -->
+                                    <div class="mb-4">
+                                        <label for="current_password" class="block text-sm font-medium text-gray-700">Mot de
+                                            passe actuel</label>
+                                        <input type="password" name="current_password" id="current_password" required
+                                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                    </div>
 
-        <!-- Nouveau mot de passe -->
-        <div class="mb-4">
-            <label for="new_password" class="block text-sm font-medium text-gray-700">Nouveau mot de passe</label>
-            <input type="password" name="new_password" id="new_password" required
-                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-        </div>
+                                    <!-- Nouveau mot de passe -->
+                                    <div class="mb-4">
+                                        <label for="new_password" class="block text-sm font-medium text-gray-700">Nouveau
+                                            mot de passe</label>
+                                        <input type="password" name="new_password" id="new_password" required
+                                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                    </div>
 
-        <!-- Confirmation -->
-        <div class="mb-4">
-            <label for="new_password_confirmation" class="block text-sm font-medium text-gray-700">Confirmer le nouveau mot de passe</label>
-            <input type="password" name="new_password_confirmation" id="new_password_confirmation" required
-                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-        </div>
+                                    <!-- Confirmation -->
+                                    <div class="mb-4">
+                                        <label for="new_password_confirmation"
+                                            class="block text-sm font-medium text-gray-700">Confirmer le nouveau mot de
+                                            passe</label>
+                                        <input type="password" name="new_password_confirmation"
+                                            id="new_password_confirmation" required
+                                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                    </div>
 
-        <!-- Boutons -->
-        <div class="flex justify-end gap-2">
-            <button type="button" id="closePasswordModal"
-                class="px-4 py-2 bg-gray-100 text-gray-800 rounded hover:bg-gray-200">Annuler</button>
-            <button type="submit"
-                class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700">Valider</button>
-        </div>
-    </form>
-</div>
-</div>
+                                    <!-- Boutons -->
+                                    <div class="flex justify-end gap-2">
+                                        <button type="button" id="closePasswordModal"
+                                            class="px-4 py-2 bg-gray-100 text-gray-800 rounded hover:bg-gray-200">Annuler</button>
+                                        <button type="submit"
+                                            class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700">Valider</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
 
 
                         <!-- Informations personnelles -->
@@ -204,7 +209,7 @@ class="hidden fixed inset-0 flex items-center justify-center z-50 bg-black bg-op
                                     <p class="text-sm text-gray-600 mt-1">Masquez temporairement votre profil, vos Épingles
                                         et vos tableaux</p>
                                 </div>
-                                <button type="button"
+                                <button type="button" id="openDeactivateModal"
                                     class="inline-flex items-center justify-center px-4 py-2 border border-gray-300 
                                     rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 
                                     focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition">
@@ -249,20 +254,43 @@ class="hidden fixed inset-0 flex items-center justify-center z-50 bg-black bg-op
             </div>
         </div>
     </div>
+
+    <!-- Modal Désactivation -->
+    <div id="deactivateModal" class="hidden fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+            <h2 class="text-lg font-semibold text-gray-800 mb-4">Confirmer la désactivation</h2>
+            <p class="text-sm text-gray-600 mb-6">Êtes-vous sûr de vouloir désactiver votre compte ? Cette action est
+                irréversible.</p>
+                <form method="POST" action="{{ route('account.deactivate') }}">
+                    @csrf
+                    <div class="flex justify-end gap-2">
+                        <button type="button" id="cancelDeactivate" class="px-4 py-2 bg-gray-100 text-gray-800 rounded hover:bg-gray-200">
+                            Annuler
+                        </button>
+                        <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">
+                            Confirmer
+                        </button>
+                    </div>
+                </form>
+                
+        </div>
+    </div>
+
+
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const openBtn = document.getElementById('openPasswordModal');
             const closeBtn = document.getElementById('closePasswordModal');
             const modal = document.getElementById('passwordModal');
-    
+
             openBtn.addEventListener('click', () => {
                 modal.classList.remove('hidden');
             });
-    
+
             closeBtn.addEventListener('click', () => {
                 modal.classList.add('hidden');
             });
-    
+
             // Optionnel : fermer en cliquant sur l’arrière-plan
             modal.addEventListener('click', (e) => {
                 if (e.target === modal) {
@@ -270,6 +298,20 @@ class="hidden fixed inset-0 flex items-center justify-center z-50 bg-black bg-op
                 }
             });
         });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const openBtn = document.getElementById('openDeactivateModal');
+            const modal = document.getElementById('deactivateModal');
+            const cancelBtn = document.getElementById('cancelDeactivate');
+
+            openBtn.addEventListener('click', () => {
+                modal.classList.remove('hidden');
+            });
+
+            cancelBtn.addEventListener('click', () => {
+                modal.classList.add('hidden');
+            });
+        });
     </script>
-    
+
 @endsection

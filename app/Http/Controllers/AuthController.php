@@ -158,6 +158,17 @@ class AuthController extends Controller
         if (!$user || !Hash::check($request->password, $user->password)) {
             return back()->withErrors(['email' => 'Identifiants incorrects.'])->withInput();
         }
+        
+        if ($user->is_desactivated) {
+            session([
+                'email_attempt' => $request->email,
+                'password_attempt' => $request->password,
+                'show_reactivation_popup' => true
+            ]);
+    
+            return redirect()->route('login');
+        }
+
         Auth::login($user);
         if ($user->role->name === 'admin') {
             return redirect()->route('admin.index');

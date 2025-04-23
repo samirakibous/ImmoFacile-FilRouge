@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -65,5 +66,38 @@ class ProfileController extends Controller
 
     return back()->with('success', 'Mot de passe mis à jour avec succès.');
 }
+
+public function desactivate(Request $request)
+{
+    $user = auth()->user();
+    $user->is_desactivated = true;
+    $user->save();
+
+    auth()->logout();
+
+    return redirect()->route('login')->with('status', 'Votre compte est désactivé pendant 30 jours.');
+}
+
+public function reactivate(Request $request)
+{
+    $email = session('email_attempt');
+    $password = session('password_attempt');
+
+    $user = User::where('email', $email)->first();
+
+    if (!$user || !Hash::check($password, $user->password)) {
+        return redirect()->route('login')->withErrors(['email' => 'Session expirée ou identifiants invalides.']);
+    }
+
+    $user->is_desactivated = false;
+    $user->save();
+
+    Auth::login($user);
+
+    session()->forget(['email_attempt', 'password_attempt']);
+
+    return redirect()->route('home')->with('status', 'Bienvenue de retour ! Votre compte est réactivé.');
+}
+
 
 }

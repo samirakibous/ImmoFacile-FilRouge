@@ -36,6 +36,9 @@ Route::get('/article', function () {
 })->name('article');
 
 
+Route::get('/reactivate', [ProfileController::class, 'reactivate'])->name('profile.reactivate');
+
+
 Route::middleware(['auth'])->group(function () {
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -49,6 +52,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/compte',[ProfileController::class, 'compte'])->name('profile.compte');
     Route::post('/compte', [ProfileController::class, 'update'])->name('account.update');
     Route::put('/account/password', [ProfileController::class, 'updatePassword'])->name('password.update');
+    Route::post('desactivate' ,[ProfileController::class, 'desactivate'])->name('account.deactivate');
+
+
 
 
 });

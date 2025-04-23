@@ -82,4 +82,15 @@
             });
         });
     </script> --}}
+    @if(session('show_reactivation_popup'))
+    <script>
+        window.onload = function () {
+            if (confirm("Votre compte est désactivé.\nSouhaitez-vous le réactiver et vous connecter ?")) {
+                window.location.href = "{{ route('profile.reactivate') }}";
+            }
+        }
+    </script>
+    {{ session()->forget('show_reactivation_popup') }}
+@endif
+
     @endsection

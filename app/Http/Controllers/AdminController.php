@@ -36,7 +36,7 @@ class AdminController extends Controller
         // dd($user->role_id);
         $user->status = 'active';
         $user->save();
-        // dd($user);
+    //    dd($user);
 
         return redirect()->route('admin.demandes')->with('success', 'Demande acceptée avec succès.');
     }

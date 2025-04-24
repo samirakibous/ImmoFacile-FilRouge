@@ -23,7 +23,7 @@
                 <li><a href="#" class="hover:text-orange-400">Vendre</a></li>
                 <li><a href="#" class="hover:text-orange-400">Location</a></li>
                 <li><a href="#" class="hover:text-orange-400">Estimation</a></li>
-                <li><a href="#" class="hover:text-orange-400">Agent Immobilier</a></li>
+                <li><a href="{{ route('agentsList') }}" class="hover:text-orange-400">Agent Immobilier</a></li>
 
                 <!-- Menu profil avec dropdown -->
                 @if (Auth::user()->role->name != 'admin')
@@ -37,8 +37,13 @@
                         <ul
                             class="absolute right-0 bg-white text-black border border-gray-200 rounded shadow-md w-40 hidden group-hover:block z-50">
                             <li>
+                                @if (Auth::user()->role->name === 'agent')
+                                <a href="{{ route('profile.agent') }}"
+                                class="block px-4 py-2 hover:bg-orange-100">Profil</a>
+                                @else
                                 <a href="{{ route('profile.index') }}"
                                     class="block px-4 py-2 hover:bg-orange-100">Profil</a>
+                                @endif
                             </li>
                             <li>
                                 <form action="{{ route('logout') }}" method="POST" class="m-0">

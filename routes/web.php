@@ -3,6 +3,8 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\cityController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProfileAgentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -55,8 +57,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('desactivate' ,[ProfileController::class, 'desactivate'])->name('account.deactivate');
     Route::post('/delete', [ProfileController::class, 'delete'])->name('account.delete');
 
+    Route::get('/agentsList', [HomeController::class, 'agentsList'])->name('agentsList');
 
-
+    Route::get('ProfileAgent', [ProfileAgentController::class, 'showAgent'])->name('profile.agent');
 
 });
 

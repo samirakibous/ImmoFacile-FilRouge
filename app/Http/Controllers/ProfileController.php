@@ -34,7 +34,9 @@ class ProfileController extends Controller
         $user->save();
     }
      
-       
+       if ($user->role->name == 'agent') {
+           return redirect()->route('profile.agent')->with('success', 'Photo de profil mise à jour avec succès');
+       }
        return redirect()->route('profile.index')->with('success', 'Photo de profil mise à jour avec succès');
    }
 

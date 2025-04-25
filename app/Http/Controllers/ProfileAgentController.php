@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ProfileAgentController extends Controller
 {
-    public function showAgent(){
-        $user = auth()->user();
+    public function showAgent($id){
+        $user = User::findOrFail($id);
         return view('profileAgent',compact('user'));
     }
+
+    public function index(){
+        return view('addAnnonce');
+    }
+
 }

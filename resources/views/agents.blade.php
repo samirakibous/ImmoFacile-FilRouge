@@ -183,7 +183,7 @@
 
                     <!-- Actions footer -->
                     <div class="flex border-t border-gray-100">
-                        <a href="{{ route('profile.agent', $agent) }}"
+                        <a href="{{ route('profile.agent', $agent->id) }}"
                             class="flex-1 py-2.5 text-center text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors duration-200 font-medium">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline mr-1" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
@@ -193,7 +193,8 @@
                                     d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                             </svg>
                             Voir profil
-                        </a>
+                         </a>
+                         
                         <a href="mailto:{{ $agent->email }}"
                             class="flex-1 py-2.5 text-center border-l border-gray-100 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200 font-medium">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline mr-1" fill="none"

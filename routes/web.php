@@ -59,8 +59,12 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/agentsList', [HomeController::class, 'agentsList'])->name('agentsList');
 
-    Route::get('ProfileAgent', [ProfileAgentController::class, 'showAgent'])->name('profile.agent');
+    Route::get('ProfileAgent/{id}', [ProfileAgentController::class, 'showAgent'])->name('profile.agent');
 
+});
+
+Route::middleware(['auth','role:agent'])->prefix('agent')->name('agent.')->group(function () {
+    Route::get('/AddAnnonce', [ProfileAgentController::class, 'index'])->name('AddAnnonce');
 });
 
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {

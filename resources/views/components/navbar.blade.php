@@ -38,8 +38,8 @@
                             class="absolute right-0 bg-white text-black border border-gray-200 rounded shadow-md w-40 hidden group-hover:block z-50">
                             <li>
                                 @if (Auth::user()->role->name === 'agent')
-                                <a href="{{ route('profile.agent') }}"
-                                class="block px-4 py-2 hover:bg-orange-100">Profil</a>
+                                <a href="{{ route('profile.agent',Auth::user()->id) }}"
+                                    class="block px-4 py-2 hover:bg-orange-100">Profil</a>
                                 @else
                                 <a href="{{ route('profile.index') }}"
                                     class="block px-4 py-2 hover:bg-orange-100">Profil</a>

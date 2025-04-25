@@ -13,7 +13,9 @@ class ProfileAgentController extends Controller
     }
 
     public function index(){
-        return view('addAnnonce');
+        
+        $agents = User::where('role_id', 2)->get();
+        return view('addAnnonce', compact('agents'));
     }
 
 }

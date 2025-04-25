@@ -163,12 +163,11 @@
                         Villa
                     </button>
                     @if (Auth::user()->id == $user->id)
-                        <a id="add-annonce-a"
-                            href="{{ route('agent.AddAnnonce') }}"
+                        <a href="{{ route('agent.AddAnnonce') }}"
                             class="category-button px-4 py-2 border border-gray-300 rounded-md flex items-center text-gray-700 bg-white hover:bg-gray-50">
                             <i class="fas fa-plus mr-2"></i>
                             Ajouter une annonce
-                        </button>
+                </a>
                     @endif
                 </div>
 
@@ -182,10 +181,6 @@
                 </div>
             </div>
 
-            <!-- You would likely have a listings section here - example placeholder -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Listing cards would go here -->
-            </div>
         </div>
     </div>
 
@@ -202,30 +197,6 @@
                     button.classList.add('border-orange-500', 'text-orange-500',
                         'hover:bg-orange-50');
                 });
-            });
-        });
-
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const addAnnonceButton = document.getElementById('add-annonce-button');
-            const modal = document.getElementById('add-annonce-modal');
-            const closeModalButton = document.getElementById('close-modal');
-
-            // Ouvrir le modal quand le bouton "Ajouter une annonce" est cliqué
-            addAnnonceButton.addEventListener('click', () => {
-                modal.classList.remove('hidden');
-            });
-
-            // Fermer le modal quand le bouton "Fermer" est cliqué
-            closeModalButton.addEventListener('click', () => {
-                modal.classList.add('hidden');
-            });
-
-            // Fermer le modal si l'utilisateur clique en dehors de la fenêtre du modal
-            window.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.classList.add('hidden');
-                }
             });
         });
     </script>

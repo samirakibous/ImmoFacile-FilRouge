@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -19,9 +20,9 @@ class AdminController extends Controller
     {
         $users = User::all();
         // $demandes = User::where('role_id', 2)->get();
-        $demandes=User::where('status','pending')->get();
+        $demandes = User::where('status', 'pending')->get();
         // dd($demandes);
-        $totalDemandes = User::where('role_id', 2)->count();
+        $totalDemandes = User::where('role_id', 2)->where('status', 'pending')->count();
         $totalUsers = User::count();
         // dd($totalDemandes);
         // dd($demandes);
@@ -36,7 +37,7 @@ class AdminController extends Controller
         // dd($user->role_id);
         $user->status = 'active';
         $user->save();
-    //    dd($user);
+        //    dd($user);
 
         return redirect()->route('admin.demandes')->with('success', 'Demande acceptée avec succès.');
     }
@@ -110,4 +111,6 @@ class AdminController extends Controller
 
         return redirect()->route('admin.users')->with('success', 'Utilisateur ajouté avec succès.');
     }
+
+    public function AddProduct() {}
 }

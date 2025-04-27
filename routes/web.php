@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\cityController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileAgentController;
@@ -81,4 +82,11 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::put('users/{id}', [AdminController::class, 'update'])->name('users.update');
     Route::post('/users', [AdminController::class, 'store'])->name('users.store');
     Route::delete('users/{id}', [AdminController::class, 'destroy'])->name('users.destroy');
+
+    Route::get('/categories',[CategoryController::class,'show'])->name('categories');
+    Route::post('/categories/create', [CategoryController::class, 'store'])->name('categories.store');
+    Route::delete('/categories/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+    Route::put('/categories/{id}',[CategoryController::class,'update'])->name('categories.update');
+
+
 });

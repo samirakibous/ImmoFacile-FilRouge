@@ -17,15 +17,15 @@ class AuthController extends Controller
 {
     public function register(Request $request)
     { 
-        //  dd($request);
-        
-        $request->validate([
+        // dd($request);
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'last_name' => 'nullable|string|max:255',
+            'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|confirmed|min:8',
             'role_id' => 'required|exists:roles,id',
         ]);
+        // dd($validated);
         $isFirstUser = User::count() === 0;
 
         if ($isFirstUser) {
@@ -54,7 +54,7 @@ class AuthController extends Controller
         ]);
         if ($status == 'active' || $isFirstUser) {
             Auth::login($user);
-            $token = $user->createToken('NomDuToken')->plainTextToken;
+            // $token = $user->createToken('NomDuToken')->plainTextToken;
             if($user->role->name === 'admin') {
                 return redirect()->route('admin.index');
             } else {

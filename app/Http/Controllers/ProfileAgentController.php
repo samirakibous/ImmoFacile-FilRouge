@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -13,9 +14,10 @@ class ProfileAgentController extends Controller
     }
 
     public function index(){
-        
+        $categories =Category::all();
+        // dd($categories);
         $agents = User::where('role_id', 2)->get();
-        return view('addAnnonce', compact('agents'));
+        return view('addAnnonce', compact('agents','categories'));
     }
 
 }

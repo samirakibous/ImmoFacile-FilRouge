@@ -79,6 +79,11 @@ Route::middleware(['auth', 'role:agent'])->prefix('agent')->group(function () {
     Route::post('/stepper-form/finish', [ProfileAgentController::class, 'finish'])->name('agent.stepper.finish');
 
     Route::post('/add-annonce', [PropertyController::class, 'store'])->name('properties.store');
+    Route::get('/my-annonces', [PropertyController::class, 'index'])->name('properties.index');
+    Route::get('/my-annonces/{id}', [PropertyController::class, 'show'])->name('properties.show');
+    Route::get('/my-annonces/{id}/edit', [PropertyController::class, 'edit'])->name('properties.edit');
+    Route::put('/my-annonces/{id}', [PropertyController::class, 'update'])->name('properties.update');
+    Route::delete('/my-annonces/{id}', [PropertyController::class, 'destroy'])->name('properties.destroy');
     
 
 });

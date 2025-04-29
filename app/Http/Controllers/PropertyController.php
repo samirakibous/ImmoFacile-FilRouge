@@ -349,4 +349,23 @@ class PropertyController extends Controller
     }
 }
 
+public function destroy($id)
+{
+    $property = Property::findOrFail($id);
+
+    if ($property->photos) {
+        $photos = json_decode($property->photos, true);
+        foreach ($photos as $photo) {
+            $filePath = public_path('uploads/' . $photo);
+            if (file_exists($filePath)) {
+                unlink($filePath);
+            }
+        }
+    }
+    $property->delete();
+
+    return redirect()->route('properties.index')->with('success', 'Annonce supprimée avec succès.');
+}
+
+
 }

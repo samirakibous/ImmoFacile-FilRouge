@@ -45,7 +45,7 @@ Route::get('/article', function () {
 
 
 Route::get('/reactivate', [ProfileController::class, 'reactivate'])->name('profile.reactivate');
-
+Route::get('/properties/{id}', [PropertyController::class, 'show'])->name('properties.show');
 
 Route::middleware(['auth'])->group(function () {
 

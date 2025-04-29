@@ -32,7 +32,7 @@
                         <div class="mr-6 mb-4 sm:mb-0 relative group">
                             <!-- Photo wrapper with click functionality -->
                             <label for="photo-upload" class="cursor-pointer block">
-                                <img src="{{ asset('storage/' . ($user->profile_picture ?? 'image.png')) }}" alt="Profile"
+                                <img src="" alt="Profile"
                                     class="rounded-full w-24 h-24 object-cover">
 
                                 <!-- Overlay that appears on hover -->
@@ -179,6 +179,16 @@
                         <i class="fas fa-chevron-down ml-2"></i>
                     </button>
                 </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                @forelse ($properties as $property)
+                    <x-property-card :property="$property" />
+                @empty
+                    <div class="col-span-3 text-center py-12">
+                        <p class="text-gray-500">Aucun bien immobilier disponible pour le moment.</p>
+                    </div>
+                @endforelse
             </div>
 
         </div>

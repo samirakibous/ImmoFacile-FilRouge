@@ -611,68 +611,68 @@
             return isValid;
         }
 
-        function handleFileSelect(event) {
-            const files = event.target.files;
-            const previewContainer = document.getElementById('preview-container');
-            const coverPhotoSelect = document.getElementById('cover_photo');
-            const photosError = document.getElementById('photos-error');
+        // function handleFileSelect(event) {
+        //     const files = event.target.files;
+        //     const previewContainer = document.getElementById('preview-container');
+        //     const coverPhotoSelect = document.getElementById('cover_photo');
+        //     const photosError = document.getElementById('photos-error');
 
-            const maxSize = 5 * 1024 * 1024;
-            const validTypes = ['image/jpeg', 'image/png', 'image/jpg'];
-            let hasError = false;
+        //     const maxSize = 5 * 1024 * 1024;
+        //     const validTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+        //     let hasError = false;
 
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i];
-                if (!validTypes.includes(file.type)) {
-                    photosError.textContent = "Format de fichier non supporté. Utilisez JPG ou PNG.";
-                    photosError.classList.remove('hidden');
-                    hasError = true;
-                    break;
-                }
+        //     for (let i = 0; i < files.length; i++) {
+        //         const file = files[i];
+        //         if (!validTypes.includes(file.type)) {
+        //             photosError.textContent = "Format de fichier non supporté. Utilisez JPG ou PNG.";
+        //             photosError.classList.remove('hidden');
+        //             hasError = true;
+        //             break;
+        //         }
 
-                if (file.size > maxSize) {
-                    photosError.textContent = "Taille de fichier dépassée. Maximum 5MB par image.";
-                    photosError.classList.remove('hidden');
-                    hasError = true;
-                    break;
-                }
-            }
+        //         if (file.size > maxSize) {
+        //             photosError.textContent = "Taille de fichier dépassée. Maximum 5MB par image.";
+        //             photosError.classList.remove('hidden');
+        //             hasError = true;
+        //             break;
+        //         }
+        //     }
 
-            if (hasError) {
-                event.target.value = '';
-                return;
-            }
+        //     if (hasError) {
+        //         event.target.value = '';
+        //         return;
+        //     }
 
-            photosError.classList.add('hidden');
+        //     photosError.classList.add('hidden');
 
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i];
-                const reader = new FileReader();
+        //     for (let i = 0; i < files.length; i++) {
+        //         const file = files[i];
+        //         const reader = new FileReader();
 
-                reader.onload = function(e) {
-                    const imgId = `photo-${Date.now()}-${i}`;
+        //         reader.onload = function(e) {
+        //             const imgId = `photo-${Date.now()}-${i}`;
 
-                    const previewWrapper = document.createElement('div');
-                    previewWrapper.className = 'relative';
-                    previewWrapper.innerHTML = `
-                    <img src="${e.target.result}" alt="Preview" class="w-full h-24 object-cover rounded">
-                    <button type="button" class="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 hover:bg-red-600" onclick="removeImage(this.parentNode)">
-                        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
-                `;
-                    previewContainer.appendChild(previewWrapper);
+        //             const previewWrapper = document.createElement('div');
+        //             previewWrapper.className = 'relative';
+        //             previewWrapper.innerHTML = `
+    //             <img src="${e.target.result}" alt="Preview" class="w-full h-24 object-cover rounded">
+    //             <button type="button" class="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 hover:bg-red-600" onclick="removeImage(this.parentNode)">
+    //                 <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    //                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+    //                 </svg>
+    //             </button>
+    //         `;
+        //             previewContainer.appendChild(previewWrapper);
 
-                    const option = document.createElement('option');
-                    option.value = imgId;
-                    option.textContent = `Photo ${i + 1}`;
-                    coverPhotoSelect.appendChild(option);
-                };
+        //             const option = document.createElement('option');
+        //             option.value = imgId;
+        //             option.textContent = `Photo ${i + 1}`;
+        //             coverPhotoSelect.appendChild(option);
+        //         };
 
-                reader.readAsDataURL(file);
-            }
-        }
+        //         reader.readAsDataURL(file);
+        //     }
+        // }
 
         //     function removeImage(element) {
         //         element.remove();
@@ -704,5 +704,95 @@
         //         })
         //         .catch(error => console.error('Error:', error));
         //     })
+
+
+
+        function handleFileSelect(event) {
+            const files = event.target.files;
+            const previewContainer = document.getElementById('preview-container');
+            const coverPhotoSelect = document.getElementById('cover_photo');
+            const photosError = document.getElementById('photos-error');
+
+            // Réinitialiser les sélections précédentes
+            previewContainer.innerHTML = '';
+            coverPhotoSelect.innerHTML = '<option value="">Sélectionnez une photo principale</option>';
+
+            const maxSize = 5 * 1024 * 1024;
+            const validTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+            let hasError = false;
+
+            // Validation des fichiers
+            for (let i = 0; i < files.length; i++) {
+                if (!validTypes.includes(files[i].type) || files[i].size > maxSize) {
+                    photosError.textContent = !validTypes.includes(files[i].type) ?
+                        "Format de fichier non supporté. Utilisez JPG ou PNG." :
+                        "Taille de fichier dépassée. Maximum 5MB par image.";
+                    photosError.classList.remove('hidden');
+                    hasError = true;
+                    break;
+                }
+            }
+
+            if (hasError) {
+                event.target.value = '';
+                return;
+            }
+
+            photosError.classList.add('hidden');
+
+            // Afficher les prévisualisations et options
+            for (let i = 0; i < files.length; i++) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    // Prévisualisation
+                    const previewWrapper = document.createElement('div');
+                    previewWrapper.className = 'relative group';
+                    previewWrapper.innerHTML = `
+                <img src="${e.target.result}" alt="Preview" class="w-full h-24 object-cover rounded">
+                <button type="button" class="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 hover:bg-red-600" 
+                        onclick="removeImage(this.parentNode, ${i})">
+                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-200 rounded"></div>
+            `;
+                    previewContainer.appendChild(previewWrapper);
+
+                    // Option pour la photo principale
+                    const option = document.createElement('option');
+                    option.value = files[i].name; // Utilisez simplement l'index
+                    option.textContent = `Photo ${i + 1}`;
+                    if (i === 0) option.selected = true; // Sélectionnez la première photo par défaut
+                    coverPhotoSelect.appendChild(option);
+                };
+
+                reader.readAsDataURL(files[i]);
+            }
+        }
+
+        function removeImage(element, index) {
+            element.remove();
+            const select = document.getElementById('cover_photo');
+            const options = select.options;
+
+            // Supprimer l'option correspondante
+            for (let i = 0; i < options.length; i++) {
+                if (parseInt(options[i].value) === index) {
+                    select.remove(i);
+                    break;
+                }
+            }
+
+            // Mettre à jour les valeurs des options restantes
+            const fileInput = document.querySelector('input[name="photos[]"]');
+            const newFiles = Array.from(fileInput.files).filter((_, i) => i !== index);
+
+            // Créer un nouveau DataTransfer pour mettre à jour les fichiers
+            const dataTransfer = new DataTransfer();
+            newFiles.forEach(file => dataTransfer.items.add(file));
+            fileInput.files = dataTransfer.files;
+        }
     </script>
 @endsection

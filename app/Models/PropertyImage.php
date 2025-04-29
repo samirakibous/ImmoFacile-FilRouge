@@ -13,12 +13,12 @@ class PropertyImage extends Model
     protected $fillable = [
         'annonce_id',
         'image_url',
-        'order'
+        'is_primary',
     ];
 
    
     public function property()
     {
-        return $this->belongsTo(Property::class);
+        return $this->belongsTo(Property::class, 'annonce_id');
     }
 }

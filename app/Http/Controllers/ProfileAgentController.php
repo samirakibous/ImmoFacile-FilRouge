@@ -10,7 +10,14 @@ class ProfileAgentController extends Controller
 {
     public function showAgent($id){
         $user = User::findOrFail($id);
-        return view('profileAgent',compact('user'));
+        // $properties = $user->properties()->with('coverImage')->get();
+        $properties = $user->properties()
+                  ->with(['images' => function($query) {
+                      $query->orderBy('is_primary', 'desc');
+                  }])
+                  ->get();
+        //  dd($properties);
+        return view('profileAgent',compact('user','properties'));
     }
 
     public function index(){

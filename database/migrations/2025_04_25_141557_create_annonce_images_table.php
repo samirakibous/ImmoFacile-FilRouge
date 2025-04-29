@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('annonce_id')->constrained('annonces')->onDelete('cascade');
             $table->string('image_url');
-            $table->boolean('is_primary')->default('false');
+            $table->boolean('is_primary')->default(false);
             $table->timestamps();
         });
     }

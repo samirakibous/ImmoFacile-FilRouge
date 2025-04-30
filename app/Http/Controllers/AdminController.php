@@ -51,7 +51,10 @@ class AdminController extends Controller
 
     public function users()
     {
-        $users = User::paginate(4);
+        // $users = User::paginate(4);
+        $users = User::whereHas('role', function ($query) {
+            $query->where('name', '!=', 'admin');
+        })->with('role')->paginate(4);
         $totalUsers = User::count();
         $roles = Role::all();
         return view('admin.users', compact('users', 'totalUsers', 'roles'));

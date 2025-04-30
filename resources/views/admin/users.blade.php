@@ -3,8 +3,6 @@
 @section('title', 'Gestion des Utilisateurs')
 
 @section('content')
-    <!-- Navbar -->
-    <x-navbar />
     <div class="flex min-h-screen bg-gray-100">
         <x-sidebar />
         <!-- Main Content -->

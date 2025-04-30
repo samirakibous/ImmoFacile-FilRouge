@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Role;
 use App\Models\User;
+use App\Notifications\AccountActivated;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -83,6 +84,10 @@ class AdminController extends Controller
         }
 
         $user->save();
+
+        if ($user->status === 'active') {
+            $user->notify(new AccountActivated($user));
+        }
 
         return response()->json(['success' => true]);
     }

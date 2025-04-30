@@ -12,9 +12,32 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $users = User::all();
         $totalUsers = User::count();
-        return view('admin.index', compact('users', 'totalUsers'));
+        $activeUsers = User::where('status', 'active')->count();
+        $pendingUsers = User::where('status', 'pending')->count();
+        $suspendedUsers = User::where('status', 'suspended')->count();
+        
+        // Statistiques par rôle - version corrigée
+        $usersByRole = Role::withCount('users')->get();
+        
+        // Nouvelles inscriptions au fil du temps (30 derniers jours)
+        $last30Days = collect(range(0, 29))->map(function ($i) {
+            $date = now()->subDays($i)->format('Y-m-d');
+            $count = User::whereDate('created_at', $date)->count();
+            return [
+                'date' => $date,
+                'count' => $count
+            ];
+        })->reverse()->values();
+    
+    return view('admin.index', compact(
+        'totalUsers', 
+        'activeUsers', 
+        'pendingUsers', 
+        'suspendedUsers', 
+        'usersByRole', 
+        'last30Days'
+    ));
     }
 
     public function demandes()

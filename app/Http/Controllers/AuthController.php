@@ -168,6 +168,10 @@ class AuthController extends Controller
     
             return redirect()->route('login');
         }
+        if ($user->status === 'pending') {
+            Auth::logout();
+            return redirect()->route('waiting.page');
+        }
 
         Auth::login($user);
         if ($user->role->name === 'admin') {

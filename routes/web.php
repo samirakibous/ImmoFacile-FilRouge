@@ -28,6 +28,9 @@ Route::get('/login', function () {
 })->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 
+Route::get('/waiting', function () {
+    return view('waiting');
+})->name('waiting.page');
 
 
 Route::get('/', function () {

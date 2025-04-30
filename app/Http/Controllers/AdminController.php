@@ -40,6 +40,7 @@ class AdminController extends Controller
         $user->save();
         //    dd($user);
 
+        $user->notify(new AccountActivated($user));
         return redirect()->route('admin.demandes')->with('success', 'Demande acceptée avec succès.');
     }
     public function refuser($id)

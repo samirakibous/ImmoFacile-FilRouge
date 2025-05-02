@@ -33,9 +33,7 @@ Route::get('/waiting', function () {
 })->name('waiting.page');
 
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 
 Route::get('/city/{cityName}/images', [cityController::class, 'showCityImages']);
@@ -49,6 +47,19 @@ Route::get('/article', function () {
 
 Route::get('/reactivate', [ProfileController::class, 'reactivate'])->name('profile.reactivate');
 Route::get('/properties/{id}', [PropertyController::class, 'show'])->name('properties.show');
+Route::get('/properties/search', [PropertyController::class, 'search'])->name('properties.search');
+Route::get('/my-annonces/{id}', [PropertyController::class, 'show'])->name('properties.show');
+///////////////////////////////////////////////////////////////
+//////////////////////paiement////////////////////////
+Route::post('/checkout/{property}', [App\Http\Controllers\StripeController::class, 'checkout'])->name('checkout.session');
+Route::get('/payment/success', function () {
+    return view('payment.success');
+})->name('payment.success');
+
+Route::get('/payment/cancel', function () {
+    return view('payment.cancel');
+})->name('payment.cancel');
+///////////////////////////////////////////////////////
 
 Route::middleware(['auth'])->group(function () {
 
@@ -69,6 +80,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/agentsList', [HomeController::class, 'agentsList'])->name('agentsList');
 
     Route::get('ProfileAgent/{id}', [ProfileAgentController::class, 'showAgent'])->name('profile.agent');
+
+    Route::get('/search', [PropertyController::class, 'search'])->name('properties.search');
+    Route::post('/add-favoris', [ProfileController::class, 'addFavoris'])->name('profile.addFavoris');
+    Route::delete('/remove-favoris', [ProfileController::class, 'removeFavoris'])->name('profile.removeFavoris');
+    
+    Route::get('/vendre',[HomeController::class, 'vendre'])->name('vendre');
+    Route::get('/louer',[HomeController::class, 'louer'])->name('louer');
 });
 
 Route::middleware(['auth', 'role:agent'])->prefix('agent')->group(function () {
@@ -83,7 +101,6 @@ Route::middleware(['auth', 'role:agent'])->prefix('agent')->group(function () {
 
     Route::post('/add-annonce', [PropertyController::class, 'store'])->name('properties.store');
     Route::get('/my-annonces', [PropertyController::class, 'index'])->name('properties.index');
-    Route::get('/my-annonces/{id}', [PropertyController::class, 'show'])->name('properties.show');
     Route::get('/my-annonces/{id}/edit', [PropertyController::class, 'edit'])->name('properties.edit');
     Route::put('/my-annonces/{id}', [PropertyController::class, 'update'])->name('properties.update');
     Route::delete('/my-annonces/{id}', [PropertyController::class, 'destroy'])->name('properties.destroy');

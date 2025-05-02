@@ -69,4 +69,13 @@
         </div>
     </div>
 </div>
+<div class="mt-8">
+    <form action="{{ route('checkout.session', $property->id) }}" method="POST">
+        @csrf
+        <button type="submit"
+                class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded">
+            🔐 Payer avec Stripe
+        </button>
+    </form>
+</div>
 @endsection

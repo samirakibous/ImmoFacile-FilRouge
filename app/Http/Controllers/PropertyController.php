@@ -7,6 +7,7 @@ use Illuminate\Container\Attributes\Auth;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\PropertyImage;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -365,6 +366,36 @@ public function destroy($id)
     $property->delete();
 
     return redirect()->route('properties.index')->with('success', 'Annonce supprimée avec succès.');
+}
+
+public function search(Request $request)
+{
+    $query = Property::query();
+
+    // Filtrer par type de bien (catégorie)
+    if ($request->filled('property_type')) {
+        $query->where('category_id', $request->input('property_type'));
+    }
+
+    // Filtrer par ville
+    if ($request->filled('city')) {
+        $query->where('ville', 'like', '%' . $request->input('city') . '%');
+    }
+
+    // Filtrer par prix maximum
+    if ($request->filled('max_price')) {
+        $query->where('price', '<=', $request->input('max_price'));
+    }
+
+    // Ajouter d'autres filtres si nécessaire (surface min, chambres, etc.)
+
+    // Obtenir les résultats paginés
+    $properties = $query->latest()->paginate(10);
+
+    // Passer les catégories pour les afficher dans la recherche
+    $categories = Category::all();
+
+    return view('home', compact('properties', 'categories'));
 }
 
 

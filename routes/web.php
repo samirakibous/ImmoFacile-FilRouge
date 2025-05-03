@@ -52,9 +52,8 @@ Route::get('/my-annonces/{id}', [PropertyController::class, 'show'])->name('prop
 ///////////////////////////////////////////////////////////////
 //////////////////////paiement////////////////////////
 Route::post('/checkout/{property}', [App\Http\Controllers\StripeController::class, 'checkout'])->name('checkout.session');
-Route::get('/payment/success', function () {
-    return view('payment.success');
-})->name('payment.success');
+Route::get('/payment/success/{property}', [App\Http\Controllers\StripeController::class, 'paymentSuccess'])->name('payment.success');
+
 
 Route::get('/payment/cancel', function () {
     return view('payment.cancel');

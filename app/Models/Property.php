@@ -39,10 +39,12 @@ class Property extends Model
         'cover_image_id',
         // 'is_published'
         'condition',
+        'is_paid',
     ];
 
     protected $casts = [
-        'is_primary' => 'boolean'
+        'is_primary' => 'boolean',
+        'is_paid' => 'boolean',
     ];
 
     public function user()

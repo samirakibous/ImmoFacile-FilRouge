@@ -24,7 +24,7 @@
                     <li><a href="{{ route('home') }}" class="px-3 py-2 rounded-md hover:bg-gray-700 hover:text-orange-400 transition duration-300">Accueil</a></li>
                     <li><a href="{{ route('vendre') }}" class="px-3 py-2 rounded-md hover:bg-gray-700 hover:text-orange-400 transition duration-300">Vendre</a></li>
                     <li><a href="{{ route('louer') }}" class="px-3 py-2 rounded-md hover:bg-gray-700 hover:text-orange-400 transition duration-300">Location</a></li>
-                    <li><a href="#" class="px-3 py-2 rounded-md hover:bg-gray-700 hover:text-orange-400 transition duration-300">Estimation</a></li>
+                    {{-- <li><a href="#" class="px-3 py-2 rounded-md hover:bg-gray-700 hover:text-orange-400 transition duration-300">Estimation</a></li> --}}
                     <li><a href="{{ route('agentsList') }}" class="px-3 py-2 rounded-md hover:bg-gray-700 hover:text-orange-400 transition duration-300">Agents</a></li>
 
                     <!-- Menu profil avec dropdown amélioré -->

@@ -219,6 +219,7 @@
         <div class="mt-12">
         </div>
     </div>
+    <x-footer />
 @endsection
 
 @push('styles')

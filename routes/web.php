@@ -101,6 +101,9 @@ Route::middleware(['auth', 'role:agent'])->prefix('agent')->group(function () {
     // Route::post('/stepper-form/step4', [ProfileAgentController::class, 'processStep4'])->name('stepper.step4');
     // Route::post('/stepper-form/step5', [ProfileAgentController::class, 'processStep5'])->name('stepper.step5');
     Route::post('/stepper-form/finish', [ProfileAgentController::class, 'finish'])->name('agent.stepper.finish');
+    // Route::put('/profile/update-info', [ProfileController::class, 'updateInfo'])->name('profile.update.info');
+    Route::put('/profile/info', [ProfileAgentController::class, 'saveOrUpdate'])->name('profile.update.info');
+
 
     Route::post('/add-annonce', [PropertyController::class, 'store'])->name('properties.store');
     Route::get('/my-annonces', [PropertyController::class, 'index'])->name('properties.index');

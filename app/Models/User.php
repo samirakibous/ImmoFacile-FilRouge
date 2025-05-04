@@ -64,4 +64,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Paiement::class);
     }
+
+    public function agentProfile()
+{
+    return $this->hasOne(ProfileAgent::class);
+}
 }

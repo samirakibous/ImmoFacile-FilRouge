@@ -352,6 +352,7 @@ class PropertyController extends Controller
 
 public function destroy($id)
 {
+    // dd(auth()->user()->role);
     $property = Property::findOrFail($id);
 
     if ($property->photos) {
@@ -364,8 +365,14 @@ public function destroy($id)
         }
     }
     $property->delete();
-
-    return redirect()->back()->with('success', 'Annonce supprimée avec succès.');;
+    if (auth()->user()->role->name === 'admin') {
+      
+        return redirect()->back()->with('success', 'Annonce supprimée avec succès.');
+    } else {
+        return redirect()->route('profile.agent', ['id' => auth()->id()])
+                         ->with('success', 'Annonce supprimée avec succès.');
+    }
+    
 }
 
 public function search(Request $request)

@@ -189,12 +189,7 @@
                         <img src="{{ asset('images/empty.png') }}" alt="Aucune annonce" class="w-64 mb-6">
                         <h2 class="text-2xl font-semibold text-gray-700 mb-4">Aucune annonce disponible</h2>
                         <p class="text-gray-500 mb-6 text-center max-w-md">Il n'y a actuellement aucune annonce dans le système.</p>
-                        <a href="{{ route('admin.properties.create') }}" class="bg-red-500 hover:bg-red-600 text-white font-medium py-3 px-8 rounded-full transition duration-300 shadow-md flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                            </svg>
-                            Créer une annonce
-                        </a>
+                       
                     </div>
                 @endif
             </div>
@@ -202,6 +197,7 @@
     </div>
 
     <!-- Delete Confirmation Modal -->
+     @foreach($properties as $property)
     <div id="deleteModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 items-center justify-center hidden z-50">
         <div class="bg-white rounded-lg shadow-xl p-6 max-w-md w-full mx-auto mt-32">
             <h2 class="text-xl font-bold text-gray-800 mb-4">Confirmer la suppression</h2>
@@ -216,6 +212,7 @@
             </div>
         </div>
     </div>
+    @endforeach
 
     <script>
         function deleteProperty(id) {

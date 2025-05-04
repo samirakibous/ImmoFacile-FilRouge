@@ -43,7 +43,7 @@
                     </svg>
                     Dashboard
                 </a>
-                <a href="#" 
+                <a href="{{ route('admin.annonces') }}" 
                     class="flex items-center px-4 py-3 text-sm rounded-lg text-gray-600 hover:bg-gray-100">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">

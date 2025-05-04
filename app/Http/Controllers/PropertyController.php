@@ -365,7 +365,7 @@ public function destroy($id)
     }
     $property->delete();
 
-    return redirect()->route('properties.index')->with('success', 'Annonce supprimée avec succès.');
+    return redirect()->back()->with('success', 'Annonce supprimée avec succès.');;
 }
 
 public function search(Request $request)
@@ -398,5 +398,12 @@ public function search(Request $request)
     return view('home', compact('properties', 'categories'));
 }
 
+public function showAnnonces(){
+    $properties = Property::with('coverImage')
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+    // dd($properties);
+    return view('admin.annonces', compact('properties'));
+}
 
 }

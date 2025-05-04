@@ -127,6 +127,10 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::delete('users/{id}', [AdminController::class, 'destroy'])->name('users.destroy');
 
     Route::get('/categories', [CategoryController::class, 'show'])->name('categories');
+    Route::get('/annonces', [PropertyController::class, 'showAnnonces'])->name('annonces');
+    Route::delete('/properties/{id}', [PropertyController::class, 'destroy'])->name('properties.destroy');
+
+
     Route::post('/categories/create', [CategoryController::class, 'store'])->name('categories.store');
     Route::delete('/categories/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
     Route::put('/categories/{id}', [CategoryController::class, 'update'])->name('categories.update');

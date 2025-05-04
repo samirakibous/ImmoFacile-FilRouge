@@ -36,12 +36,14 @@
             <!-- Bouton d'achat / contact -->
             <div class="flex justify-between items-center mb-8">
                 <div class="flex items-center gap-4">
+                    @if( auth()->user()->role->name === 'user')
                     <form action="{{ route('checkout.session', $property->id) }}" method="POST">
                         @csrf
-                    <button  type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition transform hover:scale-105">
-                        Acheter cette propriété
-                    </button>
-                </form>
+                        <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition transform hover:scale-105">
+                            Acheter cette propriété
+                        </button>
+                    </form>
+                @endif
                 </div>
 
                 <div class="flex gap-2">

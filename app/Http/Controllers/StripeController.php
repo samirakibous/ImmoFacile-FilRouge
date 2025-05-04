@@ -46,7 +46,7 @@ class StripeController extends Controller
         // dd($annonce);
         // Marquer l'annonce comme payée
         if (!$annonce->is_paid) {
-            $annonce->update(['is_paid' => true]);
+            $annonce->update(['is_paid' => true, 'status' => 'non disponible']);
 
             // Créer un enregistrement de paiement
             Paiement::create([

@@ -38,7 +38,6 @@
                         <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Achat</a></li>
                         <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Vente</a></li>
                         <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Location</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Estimation</a></li>
                     </ul>
                 </div>
                 

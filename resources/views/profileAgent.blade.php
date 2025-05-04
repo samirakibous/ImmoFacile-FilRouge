@@ -32,8 +32,7 @@
                         <div class="mr-6 mb-4 sm:mb-0 relative group">
                             <!-- Photo wrapper with click functionality -->
                             <label for="photo-upload" class="cursor-pointer block">
-                                <img src="" alt="Profile"
-                                    class="rounded-full w-24 h-24 object-cover">
+                                <img src="" alt="Profile" class="rounded-full w-24 h-24 object-cover">
 
                                 <!-- Overlay that appears on hover -->
                                 <div
@@ -147,37 +146,36 @@
             <div class="flex justify-between items-center mb-6">
                 <!-- Category Pills -->
                 <div class="flex space-x-2">
-                    <button
-                        class="category-button px-4 py-2 border border-gray-300 rounded-md flex items-center text-gray-700 bg-white hover:bg-gray-50">
-                        <i class="fas fa-building mr-2"></i>
-                        Apartment
-                    </button>
-                    <button
-                        class="category-button px-4 py-2 border border-orange-500 rounded-md flex items-center text-orange-500 bg-white hover:bg-orange-50">
-                        <i class="fas fa-map-marker-alt mr-2"></i>
-                        General
-                    </button>
-                    <button
-                        class="category-button px-4 py-2 border border-gray-300 rounded-md flex items-center text-gray-700 bg-white hover:bg-gray-50">
-                        <i class="fas fa-home mr-2"></i>
-                        Villa
-                    </button>
+
                     @if (Auth::user()->id == $user->id)
                         <a href="{{ route('agent.AddAnnonce') }}"
                             class="category-button px-4 py-2 border border-gray-300 rounded-md flex items-center text-gray-700 bg-white hover:bg-gray-50">
                             <i class="fas fa-plus mr-2"></i>
                             Ajouter une annonce
-                </a>
+                        </a>
                     @endif
                 </div>
 
                 <!-- Filter Dropdown -->
+
                 <div class="relative">
-                    <button
-                        class="px-4 py-2 border border-gray-300 rounded-md flex items-center text-gray-700 bg-white hover:bg-gray-50">
-                        Filter By Category
-                        <i class="fas fa-chevron-down ml-2"></i>
-                    </button>
+                    {{-- @foreach($properties as $property) --}}
+                    <form method="GET" action="{{ route('profile.agent', ['id' => $user->id])  }}"
+                        class="rounded-md flex items-center text-gray-700 bg-white hover:bg-gray-50">
+                        <div class="relative inline-block">
+                            <select name="category" onchange="this.form.submit()"
+                                class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                                <option value="">Toutes les catégories</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}"
+                                        {{ request('category') == $category->id ? 'selected' : '' }}>
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </form>
+                    {{-- @endforeach  --}}
                 </div>
             </div>
 

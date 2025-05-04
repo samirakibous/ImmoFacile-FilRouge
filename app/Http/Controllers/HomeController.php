@@ -15,7 +15,10 @@ class HomeController extends Controller
         $categories =Category::all();
         $properties = Property::with(['images' => function($query) {
             $query->orderBy('is_primary', 'desc');
-        }])->get();
+        }])
+        ->where('status', 'disponible')
+        ->get();
+
         return view('home',compact('categories','properties'));
     }
     public function agentsList()

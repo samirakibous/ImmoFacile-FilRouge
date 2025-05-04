@@ -8,7 +8,7 @@
                            class="block py-2 text-gray-600 hover:text-blue-500">Profile</a></li>
                    <li><a href="{{ route('profile.compte')}}" class="block py-2 text-gray-600 hover:text-blue-500">gestion de compte</a></li>
                    <li><a href="{{ route('profile.favoris')}}" class="block py-2 text-gray-600 hover:text-blue-500">Favoris</a></li>
-                   <li><a href="#" class="block py-2 text-gray-600 hover:text-blue-500">Achats</a></li>
+                   <li><a href="{{ route('profile.achats')}}" class="block py-2 text-gray-600 hover:text-blue-500">Achats</a></li>
                </ul>
            </div>
        </div>

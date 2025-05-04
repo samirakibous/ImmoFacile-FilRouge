@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileAgentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PropertyController;
+use App\Http\Controllers\StripeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpKernel\Profiler\Profile;
@@ -70,6 +71,7 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/profile/photo', [ProfileController::class, 'updatePhoto'])->name('profile.update.photo');
 
     Route::get('/favoris', [ProfileController::class, 'favoris'])->name('profile.favoris');
+    Route::get('/achats', [ProfileController::class, 'achats'])->name('profile.achats');
     Route::get('/compte', [ProfileController::class, 'compte'])->name('profile.compte');
     Route::post('/compte', [ProfileController::class, 'update'])->name('account.update');
     Route::put('/account/password', [ProfileController::class, 'updatePassword'])->name('password.update');
@@ -87,6 +89,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/vendre',[HomeController::class, 'vendre'])->name('vendre');
     Route::get('/louer',[HomeController::class, 'louer'])->name('louer');
 });
+
+Route::get('/facture/{id}/download', [StripeController::class, 'download'])->middleware('auth');
 
 Route::middleware(['auth', 'role:agent'])->prefix('agent')->group(function () {
     Route::get('/AddAnnonce', [ProfileAgentController::class, 'index'])->name('agent.AddAnnonce');

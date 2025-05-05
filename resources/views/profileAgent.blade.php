@@ -262,6 +262,39 @@
             </div>
 
         </div>
+        <form action="{{ route('reviews.store') }}" method="POST" class="max-w-md mx-auto bg-white rounded-lg shadow-md p-6 mt-8">
+            @csrf
+            <input type="hidden" name="agent_id" value="{{ $user->id }}">
+            
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Laisser un avis</h2>
+            
+            <div class="mb-6">
+                <label for="rating" class="block text-sm font-medium text-gray-700 mb-2">Note :</label>
+                <div class="flex items-center space-x-1">
+                    @for ($i = 1; $i <= 5; $i++)
+                        <input type="radio" id="star{{ $i }}" name="rating" value="{{ $i }}" class="hidden peer">
+                        <label for="star{{ $i }}" class="cursor-pointer text-2xl text-gray-300 hover:text-yellow-400 peer-checked:text-yellow-400">★</label>
+                    @endfor
+                </div>
+            </div>
+            
+            <div class="mb-6">
+                <label for="comment" class="block text-sm font-medium text-gray-700 mb-2">Commentaire :</label>
+                <textarea 
+                    name="comment" 
+                    id="comment"
+                    rows="4" 
+                    class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                    placeholder="Partagez votre expérience..."></textarea>
+            </div>
+            
+            <button 
+                type="submit" 
+                class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                Envoyer l'avis
+            </button>
+        </form>
+        
     </div>
 
     <script>

@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileAgentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PropertyController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\StripeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -88,6 +89,9 @@ Route::middleware(['auth'])->group(function () {
     
     Route::get('/vendre',[HomeController::class, 'vendre'])->name('vendre');
     Route::get('/louer',[HomeController::class, 'louer'])->name('louer');
+
+    Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+
 });
 
 Route::get('/facture/{id}/download', [StripeController::class, 'download'])->middleware('auth');

@@ -66,7 +66,17 @@ class User extends Authenticatable
     }
 
     public function agentProfile()
-{
-    return $this->hasOne(ProfileAgent::class);
-}
+    {
+        return $this->hasOne(ProfileAgent::class);
+    }
+
+    public function writtenReviews()
+    {
+        return $this->hasMany(Review::class, 'user_id');
+    }
+
+    public function receivedReviews()
+    {
+        return $this->hasMany(Review::class, 'agent_id');
+    }
 }

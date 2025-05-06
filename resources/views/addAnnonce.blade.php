@@ -359,7 +359,6 @@
 
     <script>
         let selectedFiles = [];
-        // Update the form tag attributes to prevent default submission
         document.getElementById('property-form').setAttribute('action', '/addAnnace');
         document.getElementById('property-form').setAttribute('onsubmit', 'return submitFormWithAjax(event)');
 
@@ -843,4 +842,5 @@
             updatePreview();
         }
     </script>
+    <x-footer />
 @endsection

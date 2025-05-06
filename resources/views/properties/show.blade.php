@@ -5,16 +5,13 @@
 
 <div class="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
     <div class="bg-white rounded-xl shadow-xl overflow-hidden">
-        <!-- Header avec image principale et infos clés superposées -->
         <div class="relative">
             <img src="{{ asset($property->getFirstImageUrl()) }}"
                  alt="{{ $property->title }}"
                  class="w-full h-[500px] object-cover">
             
-            <!-- Overlay gradient au bas de l'image -->
             <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             
-            <!-- Prix et titre superposés sur l'image -->
             <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
                 <h1 class="text-4xl font-bold mb-2">{{ $property->title }}</h1>
                 <div class="flex items-center space-x-2">
@@ -25,7 +22,6 @@
         </div>
 
         <div class="p-8">
-            <!-- Menu rapide de navigation -->
             <div class="flex flex-wrap gap-4 mb-8 text-sm font-medium">
                 <a href="#infos" class="text-indigo-600 hover:text-indigo-800">Informations</a>
                 <a href="#features" class="text-indigo-600 hover:text-indigo-800">Équipements</a>
@@ -33,7 +29,6 @@
                 <a href="#gallery" class="text-indigo-600 hover:text-indigo-800">Galerie</a>
             </div>
 
-            <!-- Bouton d'achat / contact -->
             <div class="flex justify-between items-center mb-8">
                 <div class="flex items-center gap-4">
                     @if( auth()->user()->role->name === 'user')
@@ -43,7 +38,7 @@
                             Acheter cette propriété
                         </button>
                     </form>
-                @endif
+                @endif 
                 </div>
 
                 <div class="flex gap-2">
@@ -63,7 +58,6 @@
                 </div>
             </div>
 
-            <!-- Caractéristiques principales avec icônes -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
                 <div class="flex items-center">
                     <div class="bg-indigo-100 p-3 rounded-lg mr-3">
@@ -111,7 +105,6 @@
                 </div>
             </div>
 
-            <!-- Infos détaillées -->
             <div id="infos" class="mb-8">
                 <h2 class="text-2xl font-bold mb-4">Informations</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -167,7 +160,7 @@
                 </div>
             </div>
 
-            <!-- Équipements avec style de badges -->
+            <!--équipements-->
             @php
                 $features = json_decode($property->equipement, true);
             @endphp
@@ -185,7 +178,6 @@
                 </div>
             @endif
 
-            <!-- Description -->
             <div id="description" class="mb-8">
                 <h2 class="text-2xl font-bold mb-4">Description</h2>
                 <div class="prose max-w-none text-gray-700">
@@ -193,7 +185,6 @@
                 </div>
             </div>
 
-            <!-- Galerie d'images -->
             @if ($property->images && $property->images->count() > 1)
                 <div id="gallery" class="mb-8">
                     <h2 class="text-2xl font-bold mb-4">Galerie photos</h2>

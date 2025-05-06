@@ -127,11 +127,8 @@
             </div>
         </div>
     </div>
-
-    <!-- JavaScript pour gérer les formulaires -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Boutons et formulaires
             const addCategoryBtn = document.getElementById('addCategoryBtn');
             const addCategoryForm = document.getElementById('addCategoryForm');
             const cancelAddBtn = document.getElementById('cancelAddBtn');
@@ -140,23 +137,19 @@
             const updateCategoryForm = document.getElementById('updateCategoryForm');
             const editBtns = document.querySelectorAll('.edit-btn');
             
-            // Afficher le formulaire d'ajout
             addCategoryBtn.addEventListener('click', function() {
                 addCategoryForm.classList.remove('hidden');
                 editCategoryForm.classList.add('hidden');
             });
             
-            // Cacher le formulaire d'ajout
             cancelAddBtn.addEventListener('click', function() {
                 addCategoryForm.classList.add('hidden');
             });
             
-            // Cacher le formulaire de modification
             cancelEditBtn.addEventListener('click', function() {
                 editCategoryForm.classList.add('hidden');
             });
             
-            // Configurer le formulaire de modification pour chaque bouton d'édition
             editBtns.forEach(function(btn) {
                 btn.addEventListener('click', function() {
                     const id = this.getAttribute('data-id');

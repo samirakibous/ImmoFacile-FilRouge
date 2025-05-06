@@ -53,8 +53,8 @@ Route::get('/properties/search', [PropertyController::class, 'search'])->name('p
 Route::get('/my-annonces/{id}', [PropertyController::class, 'show'])->name('properties.show');
 ///////////////////////////////////////////////////////////////
 //////////////////////paiement////////////////////////
-Route::post('/checkout/{property}', [App\Http\Controllers\StripeController::class, 'checkout'])->name('checkout.session');
-Route::get('/payment/success/{property}', [App\Http\Controllers\StripeController::class, 'paymentSuccess'])->name('payment.success');
+Route::post('/checkout/{property}', [StripeController::class, 'checkout'])->name('checkout.session');
+Route::get('/payment/success/{property}', [StripeController::class, 'paymentSuccess'])->name('payment.success');
 
 
 Route::get('/payment/cancel', function () {
@@ -99,13 +99,7 @@ Route::get('/facture/{id}/download', [StripeController::class, 'download'])->mid
 Route::middleware(['auth', 'role:agent'])->prefix('agent')->group(function () {
     Route::get('/AddAnnonce', [ProfileAgentController::class, 'index'])->name('agent.AddAnnonce');
     Route::get('/stepper-form', [ProfileAgentController::class, 'index'])->name('agent.stepper.index');
-    // Route::post('/stepper-form/step1', [ProfileAgentController::class, 'processStep1'])->name('stepper.step1');
-    // Route::post('/stepper-form/step2', [ProfileAgentController::class, 'processStep2'])->name('stepper.step2');
-    // Route::post('/stepper-form/step3', [ProfileAgentController::class, 'processStep3'])->name('stepper.step3');
-    // Route::post('/stepper-form/step4', [ProfileAgentController::class, 'processStep4'])->name('stepper.step4');
-    // Route::post('/stepper-form/step5', [ProfileAgentController::class, 'processStep5'])->name('stepper.step5');
     Route::post('/stepper-form/finish', [ProfileAgentController::class, 'finish'])->name('agent.stepper.finish');
-    // Route::put('/profile/update-info', [ProfileController::class, 'updateInfo'])->name('profile.update.info');
     Route::put('/profile/info', [ProfileAgentController::class, 'saveOrUpdate'])->name('profile.update.info');
 
 

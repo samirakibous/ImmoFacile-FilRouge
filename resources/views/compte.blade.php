@@ -12,12 +12,9 @@
             <div class="flex-1 max-w-3xl">
                 <div class="bg-white rounded-xl shadow-md overflow-hidden">
                     <div class="p-6 md:p-8">
-                        <!-- En-tête principal -->
                         <h1 class="text-2xl font-bold text-gray-800 mb-2">Gestion de votre compte</h1>
                         <p class="text-gray-600 mb-8 border-b pb-4">Personnalisez vos informations et paramètres de compte.
                         </p>
-
-                        <!-- Section Votre compte -->
                         <div class="mb-10">
                             <h2 class="text-xl font-semibold text-gray-800 mb-5 flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-indigo-500"
@@ -32,7 +29,6 @@
                                 @csrf
                                 @method('PUT')
 
-                                <!-- Email -->
                                 <div class="bg-gray-50 p-4 rounded-lg">
                                     <label for="email" class="block text-sm font-medium text-gray-700 mb-1">
                                         Adresse e-mail
@@ -45,7 +41,6 @@
                                         placeholder="email@exemple.com">
                                 </div>
 
-                                <!-- Mot de passe -->
                                 <div class="bg-gray-50 p-4 rounded-lg">
                                     <div class="flex items-center justify-between">
                                         <label for="password" class="block text-sm font-medium text-gray-700">Mot de
@@ -79,7 +74,6 @@
                                     @csrf
                                     @method('PUT')
 
-                                    <!-- Ancien mot de passe -->
                                     <div class="mb-4">
                                         <label for="current_password" class="block text-sm font-medium text-gray-700">Mot de
                                             passe actuel</label>
@@ -87,7 +81,6 @@
                                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                     </div>
 
-                                    <!-- Nouveau mot de passe -->
                                     <div class="mb-4">
                                         <label for="new_password" class="block text-sm font-medium text-gray-700">Nouveau
                                             mot de passe</label>
@@ -95,7 +88,6 @@
                                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                     </div>
 
-                                    <!-- Confirmation -->
                                     <div class="mb-4">
                                         <label for="new_password_confirmation"
                                             class="block text-sm font-medium text-gray-700">Confirmer le nouveau mot de
@@ -105,7 +97,6 @@
                                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                     </div>
 
-                                    <!-- Boutons -->
                                     <div class="flex justify-end gap-2">
                                         <button type="button" id="closePasswordModal"
                                             class="px-4 py-2 bg-gray-100 text-gray-800 rounded hover:bg-gray-200">Annuler</button>
@@ -116,80 +107,6 @@
                             </div>
                         </div>
 
-
-                        <!-- Informations personnelles -->
-                        <div class="mb-10">
-                            <h2 class="text-xl font-semibold text-gray-800 mb-5 flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-indigo-500"
-                                    viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd"
-                                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 005 10a6 6 0 0012 0c0-.535-.07-1.053-.2-1.546A5.001 5.001 0 0010 11z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                                Informations personnelles
-                            </h2>
-
-                            <form method="POST" action="{{ route('profile.update') }}" class="space-y-6">
-                                @csrf
-                                @method('PUT')
-
-                                <!-- Date de naissance -->
-                                <div class="bg-gray-50 p-4 rounded-lg">
-                                    <div class="flex items-center">
-                                        <label for="birthdate" class="block text-sm font-medium text-gray-700">Date de
-                                            naissance</label>
-                                        <span class="ml-1 text-gray-400 cursor-pointer"
-                                            title="Cette information reste privée">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
-                                                viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                            </svg>
-                                        </span>
-                                    </div>
-                                    <div class="flex mt-1">
-                                        <input type="text" name="birthdate" id="birthdate"
-                                            value="{{ old('birthdate', $user->birthdate) }}"
-                                            class="block w-full border-gray-300 rounded-lg shadow-sm 
-                                            focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                            placeholder="JJ/MM/AAAA">
-                                        <button type="button"
-                                            class="ml-2 p-2 text-gray-500 hover:text-indigo-600 transition">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
-                                                viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <!-- Pays/Région -->
-                                <div class="bg-gray-50 p-4 rounded-lg">
-                                    <label for="country"
-                                        class="block text-sm font-medium text-gray-700 mb-1">Pays/Région</label>
-                                    <div class="relative">
-                                        <select name="country" id="country"
-                                            class="block w-full pr-10 border-gray-300 rounded-lg shadow-sm 
-                                            focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm appearance-none">
-                                            <option value="" {{ !$user->country ? 'selected' : '' }}>Sélectionnez un
-                                                pays</option>
-                                            <option value="FR" {{ $user->country == 'FR' ? 'selected' : '' }}>France
-                                            </option>
-                                        </select>
-                                        <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M19 9l-7 7-7-7" />
-                                            </svg>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-
-                        <!-- Désactivation et suppression -->
                         <div class="border-t pt-6">
                             <h2 class="text-xl font-semibold text-gray-800 mb-5 flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-red-500"
@@ -201,7 +118,6 @@
                                 Désactivation et suppression
                             </h2>
 
-                            <!-- Désactiver le compte -->
                             <div
                                 class="bg-gray-50 p-4 rounded-lg mb-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
                                 <div>
@@ -217,7 +133,6 @@
                                 </button>
                             </div>
 
-                            <!-- Supprimer données -->
                             <div
                                 class="bg-gray-50 p-4 rounded-lg flex flex-col md:flex-row md:items-center justify-between gap-4">
                                 <div>
@@ -234,7 +149,6 @@
                             </div>
                         </div>
 
-                        <!-- Boutons d'action en bas de page -->
                         <div class="mt-8 flex justify-end space-x-4 border-t pt-6">
                             <button type="button"
                                 class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm
@@ -312,12 +226,6 @@
                 modal.classList.add('hidden');
             });
 
-            // Optionnel : fermer en cliquant sur l’arrière-plan
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.classList.add('hidden');
-                }
-            });
         });
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -348,5 +256,5 @@
             });
         });
     </script>
-
+<x-footer />
 @endsection

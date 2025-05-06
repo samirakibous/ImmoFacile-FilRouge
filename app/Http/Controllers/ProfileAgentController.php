@@ -12,6 +12,9 @@ class ProfileAgentController extends Controller
         $user = User::findOrFail($id);
         $categories = Category::all();
         $profile = $user->agentProfile;
+        $agent = User::findOrFail($id);
+        $countReviews=$agent->receivedReviews()->count();
+        $reviews = $agent->receivedReviews;
         $propertiesQuery = $user->properties()
             ->with(['images' => function ($query) {
                 $query->orderBy('is_primary', 'desc');
@@ -23,7 +26,7 @@ class ProfileAgentController extends Controller
 
         $properties = $propertiesQuery->get();
 
-        return view('profileAgent', compact('user', 'properties', 'categories','profile'));
+        return view('profileAgent', compact('user', 'properties', 'categories','profile','reviews','countReviews','agent'));
     }
 
     public function index(){

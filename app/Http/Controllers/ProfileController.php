@@ -42,11 +42,11 @@ class ProfileController extends Controller
         return redirect()->route('profile.index')->with('success', 'Photo de profil mise à jour avec succès');
     }
 
-    public function favoris()
-    {
-        $paiements = auth()->user()->paiements()->with('annonce')->get();
-        return view('favoris', compact('paiements'));
-    }
+    // public function favoris()
+    // {
+    //     $paiements = auth()->user()->paiements()->with('annonce')->get();
+    //     return view('favoris', compact('paiements'));
+    // }
 
     public function achats()
     {
@@ -61,6 +61,7 @@ class ProfileController extends Controller
 
         return view('achats', compact('paiements', 'properties'));
     }
+    
     public function compte()
     {
         $user = auth()->user();

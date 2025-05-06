@@ -32,7 +32,8 @@
                         <div class="mr-6 mb-4 sm:mb-0 relative group">
                             <!-- Photo wrapper with click functionality -->
                             <label for="photo-upload" class="cursor-pointer block">
-                                <img src="" alt="Profile" class="rounded-full w-24 h-24 object-cover">
+                                <img src="{{ asset('storage/' . (Auth::user()->profile_picture ?? 'image.png')) }}" 
+                                alt="Profile" class="rounded-full w-24 h-24 object-cover">
 
                                 <!-- Overlay that appears on hover -->
                                 <div
@@ -64,8 +65,8 @@
                                 <i class="fas fa-star text-white"></i>
                             </div>
                             <div>
-                                <p class="text-xl font-bold text-orange-500">4.4</p>
-                                <p class="text-gray-600">18 Reviews</p>
+                                <p class="text-xl font-bold text-orange-500">{{$agent->receivedReviews()->count() }}</p>
+                                <p class="text-gray-600"> Reviews</p>
                             </div>
                         </div>
 
@@ -75,17 +76,6 @@
                                 Modifier les informations
                             </button>
                         @endif
-
-                        {{-- <!-- Listings -->
-                        <div class="flex items-center bg-gray-100 px-4 py-2 rounded-lg">
-                            <div class="bg-orange-500 p-2 rounded-lg mr-3">
-                                <i class="fas fa-list text-white"></i>
-                            </div>
-                            <div>
-                                <p class="text-xl font-bold text-orange-500">18</p>
-                                <p class="text-gray-600">Listings</p>
-                            </div>
-                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -262,24 +252,14 @@
             </div>
 
         </div>
-        <form action="{{ route('reviews.store') }}" method="POST" class="max-w-md mx-auto bg-white rounded-lg shadow-md p-6 mt-8">
+        <form action="{{ route('reviews.store') }}" method="POST" class=" mx-auto bg-white rounded-lg shadow-md p-6 mt-8">
             @csrf
             <input type="hidden" name="agent_id" value="{{ $user->id }}">
             
-            <h2 class="text-2xl font-bold text-gray-800 mb-6">Laisser un avis</h2>
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">Laisser un avis</h2>
             
-            <div class="mb-6">
-                <label for="rating" class="block text-sm font-medium text-gray-700 mb-2">Note :</label>
-                <div class="flex items-center space-x-1">
-                    @for ($i = 1; $i <= 5; $i++)
-                        <input type="radio" id="star{{ $i }}" name="rating" value="{{ $i }}" class="hidden peer">
-                        <label for="star{{ $i }}" class="cursor-pointer text-2xl text-gray-300 hover:text-yellow-400 peer-checked:text-yellow-400">★</label>
-                    @endfor
-                </div>
-            </div>
-            
-            <div class="mb-6">
-                <label for="comment" class="block text-sm font-medium text-gray-700 mb-2">Commentaire :</label>
+            <div class="mb-4">
+                {{-- <label for="comment" class="block text-sm font-medium text-gray-700 mb-2">Commentaire :</label> --}}
                 <textarea 
                     name="comment" 
                     id="comment"
@@ -290,10 +270,29 @@
             
             <button 
                 type="submit" 
-                class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                Envoyer l'avis
+                class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-200">
+                Envoyer
             </button>
         </form>
+        <div class=" mx-auto bg-white rounded-lg shadow-md p-6 mt-4">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">Avis des clients</h2>
+        
+            @if(isset($reviews) && $reviews->count() > 0)
+                <div class="space-y-4">
+                    @foreach($reviews as $review)
+                        <div class="border-b pb-4">
+                            <div class="flex items-center justify-between mb-2">
+                                <p class="font-medium text-gray-800">{{ $review->author->name }}</p>
+                                <span class="text-sm text-gray-500">{{ $review->created_at->format('d/m/Y') }}</span>
+                            </div>
+                            <p class="text-gray-600">{{ $review->comment }}</p>
+                        </div>
+                    @endforeach
+                </div>
+            @else
+                <p class="text-gray-500 text-center py-4">Aucun avis pour le moment</p>
+            @endif
+        </div>
         
     </div>
 
@@ -313,4 +312,5 @@
             });
         });
     </script>
+    <x-footer />
 @endsection

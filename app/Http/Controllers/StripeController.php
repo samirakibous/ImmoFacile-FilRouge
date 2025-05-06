@@ -61,58 +61,56 @@ class StripeController extends Controller
         return view('succes');
     }
 
-    public function success(Request $request, $propertyId)
-    {
-        $property = Property::findOrFail($propertyId);
+    // public function success(Request $request, $propertyId)
+    // {
+    //     $property = Property::findOrFail($propertyId);
 
-        // Vérification que le paiement a bien été effectué
-        $paiement = Paiement::create([
-            'user_id' => auth()->id(),
-            'property_id' => $property->id,
-            'amount' => $property->price * 100, // montant en centimes
-            'currency' => 'eur',
-            'status' => 'completed', // Le paiement est validé
-        ]);
+    //     $paiement = Paiement::create([
+    //         'user_id' => auth()->id(),
+    //         'property_id' => $property->id,
+    //         'amount' => $property->price * 100, //en cm
+    //         'currency' => 'eur',
+    //         'status' => 'completed',
+    //     ]);
 
-        // Mettre à jour l'annonce pour qu'elle soit marquée comme payée
-        $property->update(['is_paid' => true]);
+    //     $property->update(['is_paid' => true]);
 
-        return view('payment.success', compact('paiement'));
-    }
+    //     return view('payment.success', compact('paiement'));
+    // }
 
-    public function download($id)
-    {
-        $paiement = Paiement::findOrFail($id);
+    // public function download($id)
+    // {
+    //     $paiement = Paiement::findOrFail($id);
     
-        $user = $paiement->user;
-        $annonce = $paiement->annonce;
+    //     $user = $paiement->user;
+    //     $annonce = $paiement->annonce;
     
-        if ($paiement->user_id !== auth()->id()) {
-            abort(403, 'Vous n\'êtes pas autorisé à accéder à cette facture.');
-        }
+    //     if ($paiement->user_id !== auth()->id()) {
+    //         abort(403, 'Vous n\'êtes pas autorisé à accéder à cette facture.');
+    //     }
     
-        $facturePath = 'factures/facture-' . $paiement->id . '.pdf';
+    //     $facturePath = 'factures/facture-' . $paiement->id . '.pdf';
     
-        if (Storage::exists($facturePath)) {
-            return Storage::download($facturePath, 'facture-' . $paiement->id . '.pdf');
-        }
+    //     if (Storage::exists($facturePath)) {
+    //         return Storage::download($facturePath, 'facture-' . $paiement->id . '.pdf');
+    //     }
     
-        // Sinon, générer la facture
-        $data = [
-            'paiement' => $paiement,
-            'annonce' => $annonce,
-            'user' => $user,
-            'numero_facture' => 'F-' . date('Ymd') . '-' . $paiement->id,
-            'date_facture' => $paiement->created_at->format('d/m/Y'),
-        ];
+    //     // Sinon, générer la facture
+    //     $data = [
+    //         'paiement' => $paiement,
+    //         'annonce' => $annonce,
+    //         'user' => $user,
+    //         'numero_facture' => 'F-' . date('Ymd') . '-' . $paiement->id,
+    //         'date_facture' => $paiement->created_at->format('d/m/Y'),
+    //     ];
     
-        $pdf = PDF::loadView('facture', $data);
+    //     $pdf = PDF::loadView('facture', $data);
     
-        // Sauvegarder la facture pour utilisation future
-        Storage::put($facturePath, $pdf->output());
+    //     // Sauvegarder la facture pour utilisation future
+    //     Storage::put($facturePath, $pdf->output());
     
-        // Télécharger la facture
-        return $pdf->download('facture-' . $paiement->id . '.pdf');
-    }
+    //     // Télécharger la facture
+    //     return $pdf->download('facture-' . $paiement->id . '.pdf');
+    // }
     
 }

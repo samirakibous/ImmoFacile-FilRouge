@@ -32,7 +32,7 @@
                         <div class="mr-6 mb-4 sm:mb-0 relative group">
                             <!-- Photo wrapper with click functionality -->
                             <label for="photo-upload" class="cursor-pointer block">
-                                <img src="{{ asset('storage/' . (Auth::user()->profile_picture ?? 'image.png')) }}" 
+                                <img src="{{ asset('storage/' . ($user->profile_picture ?? 'image.png')) }}" 
                                 alt="Profile" class="rounded-full w-24 h-24 object-cover">
 
                                 <!-- Overlay that appears on hover -->
@@ -110,7 +110,7 @@
             </div>
         
             <div>
-                <label class="block font-medium">Site web</label>
+                <label class="block font-medium">Téléphone</label>
                 <input type="text" name="website" value="{{ $user->website ?? '' }}"
                     class="w-full border px-3 py-2 rounded">
             </div>
@@ -151,11 +151,11 @@
                             <i class="fas fa-map-marker-alt text-orange-500 mt-1 mr-3"></i>
                             <p>{{ $profile?->adresse ?? 'Adresse non renseignée' }}</p>
                         </div>
-
+{{-- 
                         <div class="flex items-start">
                             <i class="fas fa-phone text-orange-500 mt-1 mr-3"></i>
                             <p>{{ $profile?->phone ?? 'Téléphone non renseigné' }}</p>
-                        </div>
+                        </div> --}}
 
                         <div class="flex items-start">
                             <i class="fas fa-envelope text-orange-500 mt-1 mr-3"></i>
@@ -163,7 +163,8 @@
                         </div>
 
                         <div class="flex items-start">
-                            <i class="fas fa-globe text-orange-500 mt-1 mr-3"></i>
+                            {{-- <i class="fas fa-globe text-orange-500 mt-1 mr-3"></i> --}}
+                            <i class="fas fa-phone text-orange-500 mt-1 mr-3"></i>
                             <p>{{ $profile?->website ?? 'Site web non renseigné' }}</p>
                         </div>
 
@@ -293,7 +294,6 @@
                 <p class="text-gray-500 text-center py-4">Aucun avis pour le moment</p>
             @endif
         </div>
-        
     </div>
 
     <script>

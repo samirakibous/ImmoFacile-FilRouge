@@ -23,8 +23,10 @@ class HomeController extends Controller
     }
     public function agentsList()
     {
-        $agents = User::where('role_id', 2)->get(); 
+        // $agents = User::where('role_id', 2)->get(); 
         //  dd($agents);
+        $agents = User::where('role_id', 2)->with('agentProfile')->get(); 
+        // dd($agents);
         return view('agents',compact('agents'));
     }
 

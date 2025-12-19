@@ -236,7 +236,6 @@ Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
 ## 📧 Contact
 
 Pour toute question ou suggestion :
-- Email : contact@immofacile.fr
 - GitHub : [https://github.com/samirakibous/ImmoFacile-FilRouge](https://github.com/samirakibous/ImmoFacile-FilRouge)
 
 ## 🙏 Remerciements
